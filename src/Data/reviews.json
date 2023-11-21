@@ -1,0 +1,23 @@
+[
+ {
+  "_id": "1",
+  "movie_id": "346698",
+  "user": "abrikk",
+  "rating": 4,
+  "comment": "I loved wearing pink to the Barbie movie! Hi Barbie!"
+ },
+ {
+  "_id": "2",
+  "movie_id": "414906",
+  "user": "abrikk",
+  "rating": 5,
+  "comment": "Favorite movie of the year!"
+ },
+ {
+  "_id": "3",
+  "movie_id": "414906",
+  "user": "abrikk",
+  "rating": 5,
+  "comment": "The movie version of the \"men will literally X instead of going to therapy\" meme."
+ }
+]

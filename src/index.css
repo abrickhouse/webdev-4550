@@ -58,6 +58,7 @@ button:active {
  margin-left: 10px;
 }
 .peek {
+ text-decoration: none;
 }
 .outline {
  border: #242424 2px;
