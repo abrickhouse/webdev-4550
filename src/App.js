@@ -8,12 +8,16 @@ import Screenings from "./screenings/Screenings";
 import Search from "./search/Search";
 import Profile from "./profile/Profile";
 import Details from "./search/Details";
+import Login from "./login/Login";
+import Register from "./login/Signup";
 
 function App() {
  return (
   <HashRouter>
    <div class="body">
     <Routes>
+     <Route path="/login/*" element={<Login />} />
+     <Route path="/register/*" element={<Register />}/>
      <Route path="/" element={<Home />} />
      <Route path="/screenings/*" element={<Screenings />} />
      <Route path="/search/*" element={<Search />} />
