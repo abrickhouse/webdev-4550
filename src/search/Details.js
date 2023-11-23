@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Review from "../Review";
+import reviews from "../Data/reviews.json";
 
 function Details() {
  const { id } = useParams();
@@ -46,9 +47,8 @@ function Details() {
     {" "}
     <i className="fa fa-chevron-left float-start mx-1 my-1"></i> Back to Search
    </Link>
-   <div class="page-title">Details</div>
    {result && (
-    <div class="grid round outline mx-3">
+    <div class="grid round outline mx-3 my-3">
      <div className=" row">
       <img
        className="col-2 mx-1"
@@ -73,18 +73,22 @@ function Details() {
      </div>
 
      <div class="my-4">
-      <div class="d-flex align-items-center">
+      <div class="d-flex row align-items-center">
        {" "}
-       <h5 placeholder="Search movies by title..." class="m-2 py-1">
-        Reviews (but only review with this id as their movie_id) then work on
-        adding reviews to database then has to be on a server
+       <h5 placeholder="Search movies by title..." class="m-2 py-1 col-9">
+        Reviews
        </h5>
-       <button class="btnx py-0">Add a Review</button>
+       <div className="col-2">
+        {" "}
+        <button class="btnx py-0  float-end">Add a Review</button>
+       </div>
       </div>
       <div class="list-group">
-       <Review />
-       <Review />
-       <Review />
+       {reviews
+        .filter((r) => r.movie_id == id)
+        .map((rev) => (
+         <Review user={rev.user} rating={rev.rating} comment={rev.comment} />
+        ))}
       </div>
      </div>
     </div>

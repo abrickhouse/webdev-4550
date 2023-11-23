@@ -16,8 +16,127 @@
  {
   "_id": "3",
   "movie_id": "414906",
-  "user": "abrikk",
+  "user": "duane_b",
   "rating": 5,
   "comment": "The movie version of the \"men will literally X instead of going to therapy\" meme."
+ },
+ {
+  "_id": "4",
+  "movie_id": "414906",
+  "user": "kait",
+  "rating": 5,
+  "comment": "this film was so good that my dad actually paid attention the whole time instead of going on his phone"
+ },
+ {
+  "_id": "5",
+  "movie_id": "414906",
+  "user": "scoobzzz",
+  "rating": 4,
+  "comment": "If I knew this movie was gonna be in pitch black the entire time I wouldn’t of bought front row seats"
+ },
+ {
+  "_id": "6",
+  "movie_id": "414906",
+  "user": "kutubi",
+  "rating": 3,
+  "comment": "This movie is too long to be so humorless…"
+ },
+ {
+  "_id": "7",
+  "movie_id": "414906",
+  "user": "liam_t",
+  "rating": 2,
+  "comment": "Overrated"
+ },
+ {
+  "_id": "8",
+  "movie_id": "414906",
+  "user": "yam",
+  "rating": 2,
+  "comment": "back to going to the gym every day"
+ },
+ {
+  "_id": "9",
+  "movie_id": "414906",
+  "user": "boygenius1",
+  "rating": 2,
+  "comment": "such a cool film"
+ },
+ {
+  "_id": "10",
+  "movie_id": "127585",
+  "user": "trin",
+  "rating": 5,
+  "comment": "this film is the reason i defend the entire x-men franchise so hard!"
+ },
+ {
+  "_id": "11",
+  "movie_id": "127585",
+  "user": "rudi",
+  "rating": 4,
+  "comment": "r.i.p to the X-Men franchises timeline continuity 🤧😪 gone but not forgotten"
+ },
+ {
+  "_id": "12",
+  "movie_id": "127585",
+  "user": "rebecca",
+  "rating": 4,
+  "comment": "are we finally ready to talk about how this is one of the best comic book movies ever made?"
+ },
+ {
+  "_id": "13",
+  "movie_id": "36657",
+  "user": "zara",
+  "rating": 5,
+  "comment": "Do YoU kNoW wHaT hApPeNs To A tOaD wHeN iT's StRuCk By LiGhTnInG? ThE sAmE tHiNg ThAt HaPpEnS tO eVeRyThInG eLsE"
+ },
+ {
+  "_id": "14",
+  "movie_id": "36657",
+  "user": "kemiller",
+  "rating": 4,
+  "comment": "This movie is so entrenched in our culture’s subconscious, Disney still isn’t brave enough to recast Wolverine."
+ },
+ {
+  "_id": "15",
+  "movie_id": "246655",
+  "user": "omer",
+  "rating": 3,
+  "comment": "It's okay. It didn't become a film I love, but I can't say I didn't enjoy watching it."
+ },
+ {
+  "_id": "16",
+  "movie_id": "246655",
+  "user": "mari",
+  "rating": 2,
+  "comment": "here for evan peter"
+ },
+ {
+  "_id": "17",
+  "movie_id": "246655",
+  "user": "isaiah",
+  "rating": 4,
+  "comment": "This film has a lot going on, with the unnecessary Weapon X plot, to trying to make Jennifer Lawrence the main star. I still think this is a great film and is overhated. The film feels like it has big stakes especially with apocalypse as its main villain. The grand final battle, the cast of characters we get from the X-Men to the Fourhorse men. Michael Fassbender, and James McAvoy do another fantastic job as Professor X and Erik. And the quick silver scene is just pure superhero cinema. A great continuation from days of future past."
+ },
+ {
+  "_id": "9",
+  "movie_id": "37165",
+  "user": "james",
+  "rating": 5,
+  "comment": "The most fun and lighthearted horror movie ever made"
+ },
+ {
+  "_id": "9",
+  "movie_id": "37165",
+  "user": "sebastian",
+  "rating": 5,
+  "comment": "my life is a lie"
+ },
+ {
+  "_id": "9",
+  "movie_id": "37165",
+  "user": "maddie",
+  "rating": 5,
+  "comment": "i think it’s an understatement saying that this film changed me"
  }
 ]
