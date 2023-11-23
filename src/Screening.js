@@ -2,10 +2,12 @@ import { React, useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./App.css";
+import screenings from "./Data/screenings.json";
 import axios from "axios";
 
 function Screening(props) {
  const [result, setResult] = useState();
+ const [views, setViews] = useState(props.viewers);
  const options = {
   method: "GET",
   url: `https://api.themoviedb.org/3/movie/${props.movie}?language=en-US`,
@@ -14,6 +16,24 @@ function Screening(props) {
    Authorization:
     "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4OGQ2NWQ4NGZlYmNhMWQwMTFjMWY5MWYwNWQxMDc1NSIsInN1YiI6IjY1NTY1YzJiN2YwNTQwMDBjNTc5MDU3NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Xm54P0547jeEewjjkj6nhyB4iN0spOT8jFxmI-wMoO8",
   },
+ };
+
+ const handleJoin = () => {
+  // should not change if they are already in it (!)
+  screenings = screenings.map((s) =>
+   s.movie_id === result.id.toString()
+    ? {
+       _id: s._id,
+       movie_id: s.movie_id,
+       user: s.user,
+       date: s.date,
+       viewers: [...s.viewers, "new"],
+      }
+    : s
+  );
+  setViews(views + 1);
+  console.log(screenings);
+  console.log(result.id);
  };
 
  const getInfo = async () => {
@@ -31,7 +51,7 @@ function Screening(props) {
 
  useEffect(() => {
   getInfo();
- }, []);
+ }, [screenings]);
  return (
   <li class="round  my-1">
    {result && (
@@ -60,9 +80,11 @@ function Screening(props) {
          </div>
         </div>
        </div>
-       <div className="flex-shrink-1">
-        <button class="btnx py-0  float-end">Join</button>
-        <div class="my-3">Viewers: {props.viewers.length}</div>
+       <div className="flex-shrink-1 align-items-end flex-column">
+        <button class="btnx py-0 px-2 float-end" onClick={handleJoin}>
+         Join
+        </button>
+        <div class="my-3">Viewers: {views}</div>
        </div>
       </div>
      </div>

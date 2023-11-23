@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Review from "../Review";
 import reviews from "../Data/reviews.json";
+import Modal from "react-modal";
 
 function Details() {
  const { id } = useParams();
@@ -33,6 +34,32 @@ function Details() {
    .catch(function (error) {
     console.error(error);
    });
+ };
+
+ const [open, setOpen] = React.useState(false);
+ const [com, setCom] = React.useState("");
+ const [rat, setRat] = React.useState(0);
+
+ const handleClose = () => {
+  setOpen(false);
+ };
+
+ const handleSave = () => {
+  setOpen(false);
+  reviews = [
+   ...reviews,
+   {
+    _id: new Date().getTime().toString(),
+    movie_id: result.id,
+    user: "new",
+    comment: com,
+    rating: rat,
+   },
+  ];
+ };
+
+ const handleOpen = () => {
+  setOpen(true);
  };
 
  useEffect(() => {
@@ -80,7 +107,9 @@ function Details() {
        </h5>
        <div className="col-2">
         {" "}
-        <button class="btnx py-0  float-end">Add a Review</button>
+        <button onClick={handleOpen} class="btnx py-0  float-end">
+         Add a Review
+        </button>
        </div>
       </div>
       <div class="list-group">
@@ -91,6 +120,50 @@ function Details() {
         ))}
       </div>
      </div>
+     <Modal isOpen={open} onClose={handleClose} className="add">
+      <>
+       <h1>Review</h1>
+       <h3>
+        Add a review for{" "}
+        {result.original_title ? result.original_title : result.original_name}
+       </h3>
+       <label className="my-1">
+        {" "}
+        Comment:{" "}
+        <textarea
+         class="form-control"
+         onChange={(e) => setCom(e.target.value)}
+         id="exampleFormControlTextarea1"
+         rows="4"
+         cols="68"
+        ></textarea>
+       </label>
+       <div>
+        <label className="my-3">
+         Star Rating:{" "}
+         <input
+          onChange={(e) => setRat(e.target.value)}
+          type="number"
+          min="1"
+          max="5"
+          className="form-control "
+         ></input>
+        </label>
+       </div>
+
+       <div className="my-5">
+        {" "}
+        <button class="btnx py-0 mx-2 float-end" onClick={handleSave}>
+         {" "}
+         save
+        </button>
+        <button class="btnx py-0  float-end" onClick={handleClose}>
+         {" "}
+         close
+        </button>
+       </div>
+      </>
+     </Modal>
     </div>
    )}
   </div>
