@@ -37,6 +37,18 @@ code {
  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
   border-color 0.15s ease-in-out;
 }
+.add {
+ background-color: white;
+ height: 500px;
+ width: 700px;
+ border-style: solid;
+ border-width: 2px;
+ border-radius: 15px;
+ padding: 2rem;
+ position: fixed;
+ top: 20%;
+ left: 15vw;
+}
 
 .btnx {
  display: block;
@@ -50,7 +62,9 @@ button:active {
 }
 .bg-main {
  background-color: #eeeeee;
- height: 100vh;
+ min-height: 100vh;
+ height: 100%;
+ padding-bottom: 10px;
 }
 .page-title {
  font-weight: 500;
@@ -58,6 +72,7 @@ button:active {
  margin-left: 10px;
 }
 .peek {
+ text-decoration: none;
 }
 .outline {
  border: #242424 2px;

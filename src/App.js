@@ -17,14 +17,13 @@ function App() {
     <Provider store={store}>
       <HashRouter>
         <div class="body">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/screenings/*" element={<Screenings />} />
-            <Route path="/search/*" element={<Search />} />
+              <Routes>
+     <Route path="/" element={<Home />} />
+     <Route path="/screenings/*" element={<Screenings />} />
+     <Route path="/search/*" element={<Search />} />
             <Route path="/profile/:uId" element={<Profile />} />
             <Route path="/profile/profileEditor/:uId" element={<ProfileEditor />} />
-            <Route path="/details/*" element={<Details />} />
-          </Routes>
+<Route path="/details/:id" element={<Details />} />          </Routes>
         </div>
       </HashRouter>
     </Provider>

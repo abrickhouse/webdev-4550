@@ -1,0 +1,23 @@
+[
+ {
+  "_id": "1",
+  "movie_id": "414906",
+  "user": "m_reeves",
+  "date": "2023-12-06",
+  "viewers": ["abrikk", "ava"]
+ },
+ {
+  "_id": "2",
+  "movie_id": "346698",
+  "user": "greta",
+  "date": "2023-12-25",
+  "viewers": ["abrikk"]
+ },
+ {
+  "_id": "3",
+  "movie_id": "120467",
+  "user": "wes_anderson",
+  "date": "2023-12-13",
+  "viewers": []
+ }
+]
