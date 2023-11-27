@@ -2,8 +2,8 @@
   {
     "name": "Guy Fieri",
     "id": 1,
-    "followers": [2],
-    "following": [2],
+    "followers": [1, 2, 3, 4, 6],
+    "following": [2, 4, 5],
     "bio": "Host of 'Diners, Drive-Ins, and Dives,' exploring flavors and food spots! Bringing you bold eats and epic taste adventures. Join me on a flavorful journey! #Flavortown",
     "profilePicture": "https://flowjournal.org/wp-content/uploads/2012/09/Image-1-Guy-Fieri.png",
     "userType": "Typical User",
@@ -19,8 +19,8 @@
   {
     "name": "Gordon Ramsey",
     "id": 2,
-    "followers": [1],
-    "following": [1],
+    "followers": [1, 3, 6],
+    "following": [1, 4],
     "bio": "Michelin-starred chef & TV personality. Passionate about cooking and honest critiques. Catch me on 'Hell's Kitchen' & 'MasterChef.' Let's cook up something amazing! Don't be an idiot sandwich!",
     "profilePicture": "https://people.com/thmb/O6PzGMHZplKPtMekeJJSoqQFIIU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(749x0:751x2)/gordon-ramsay-10-8dbbe3821e5a4dcba91b133523c525c0.jpg",
     "userType": "Director",
@@ -32,5 +32,73 @@
     "email": "chefgordon@example.com",
     "phoneNumber": "987-654-3210",
     "address": "7 Culinary Lane, London, UK"
+  },
+  {
+    "name": "Rachel Ray",
+    "id": 3,
+    "followers": [2, 4],
+    "following": [1, 2, 4],
+    "bio": "TV chef and author, known for her cooking shows and cookbooks. Join me in exploring easy-to-make and delicious recipes!",
+    "profilePicture": "https://www.rachaelrayshow.com/sites/default/files/styles/1100x620/public/images/2019-05/rach_101_pasta.jpg?h=b57fb63c&itok=npRVYPVr",
+    "userType": "Typical User",
+    "reviews": [
+      "The Shawshank Redemption: Such a powerful movie, left me speechless.",
+      "Inception: Mind-bending and brilliant storytelling!"
+    ],
+    "likes": ["movie3", "movie4"],
+    "email": "rachelray@example.com",
+    "phoneNumber": "111-222-3333",
+    "address": "123 Recipe Street, Cookingville, USA"
+  },
+  {
+    "name": "Anthony Bourdain",
+    "id": 4,
+    "followers": [1, 2, 3],
+    "following": [1, 2, 3],
+    "bio": "Traveler, chef, and storyteller. Exploring cultures through food. Join me on my culinary adventures!",
+    "profilePicture": "https://img.freepik.com/premium-vector/anonymous-user-circle-icon-vector-illustration-flat-style-with-long-shadow_520826-1931.jpg",
+    "userType": "Typical User",
+    "reviews": [
+      "Pulp Fiction: Classic Tarantino style, loved every minute!",
+      "The Godfather: A masterpiece in every sense."
+    ],
+    "likes": ["movie5", "movie6"],
+    "email": "anthony@example.com",
+    "phoneNumber": "444-555-6666",
+    "address": "567 Explorer Avenue, Wanderland, USA"
+  },
+  {
+    "name": "Steven Spielberg",
+    "id": 5,
+    "followers": [1],
+    "following": [],
+    "bio": "Film director, producer, and screenwriter. Bringing stories to life through movies. Let's create cinematic magic!",
+    "profilePicture": "https://img.freepik.com/premium-vector/anonymous-user-circle-icon-vector-illustration-flat-style-with-long-shadow_520826-1931.jpg",
+    "userType": "Director",
+    "addedMovies": ["movie3", "movie4"],
+    "responsesToReviews": [
+      "Glad you enjoyed The Shawshank Redemption. It's a film close to my heart.",
+      "Thanks for appreciating the complexity of Inception. It was a challenge to craft!"
+    ],
+    "email": "spielberg@example.com",
+    "phoneNumber": "777-888-9999",
+    "address": "890 Hollywood Boulevard, Los Angeles, USA"
+  },
+  {
+    "name": "Quentin Tarantino",
+    "id": 6,
+    "followers": [],
+    "following": [1],
+    "bio": "Director, producer, and screenwriter. Embracing unconventional storytelling through movies.",
+    "profilePicture": "https://img.freepik.com/premium-vector/anonymous-user-circle-icon-vector-illustration-flat-style-with-long-shadow_520826-1931.jpg",
+    "userType": "Director",
+    "addedMovies": ["movie5", "movie6"],
+    "responsesToReviews": [
+      "Glad you enjoyed Pulp Fiction's unique style. It was a blast to create!",
+      "Thanks for your love for The Godfather. It's a timeless classic."
+    ],
+    "email": "quentin@example.com",
+    "phoneNumber": "101-202-3030",
+    "address": "456 Movie Lane, Filmtown, USA"
   }
 ]

@@ -8,8 +8,6 @@ import { useSelector } from "react-redux";
 import ProfileReducer from "./ProfileReducer";
 
 
-
-
 // Profile page for the logged in user
 function Profile() {
   const { uId } = useParams();
