@@ -1,0 +1,36 @@
+[
+  {
+    "name": "Guy Fieri",
+    "id": 1,
+    "followers": [2],
+    "following": [2],
+    "bio": "Host of 'Diners, Drive-Ins, and Dives,' exploring flavors and food spots! Bringing you bold eats and epic taste adventures. Join me on a flavorful journey! #Flavortown",
+    "profilePicture": "https://flowjournal.org/wp-content/uploads/2012/09/Image-1-Guy-Fieri.png",
+    "userType": "Typical User",
+    "reviews": [
+      "Finding Nemo: Finding Nemo was an amazing movie! Loved the storyline and animation.",
+      "Borat: Borat was a hilarious satire, very unique and entertaining."
+    ],
+    "likes": ["movie1", "movie2"],
+    "email": "flavorguy@example.com",
+    "phoneNumber": "123-456-7890",
+    "address": "42 Spice Avenue, Flavortown, USA"
+  },
+  {
+    "name": "Gordon Ramsey",
+    "id": 2,
+    "followers": [1],
+    "following": [1],
+    "bio": "Michelin-starred chef & TV personality. Passionate about cooking and honest critiques. Catch me on 'Hell's Kitchen' & 'MasterChef.' Let's cook up something amazing! Don't be an idiot sandwich!",
+    "profilePicture": "https://people.com/thmb/O6PzGMHZplKPtMekeJJSoqQFIIU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(749x0:751x2)/gordon-ramsay-10-8dbbe3821e5a4dcba91b133523c525c0.jpg",
+    "userType": "Director",
+    "addedMovies": ["movie1", "movie2"],
+    "responsesToReviews": [
+      "Thank you for your review of Finding Nemo! It's a beautiful tale indeed.",
+      "Glad you found Borat entertaining. We aimed for something different."
+    ],
+    "email": "chefgordon@example.com",
+    "phoneNumber": "987-654-3210",
+    "address": "7 Culinary Lane, London, UK"
+  }
+]
