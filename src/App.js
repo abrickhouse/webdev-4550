@@ -7,7 +7,7 @@ import Home from "./Home";
 import Screenings from "./screenings/Screenings";
 import Search from "./search/Search";
 import Profile from "./profile/Profile";
-import Details from "./search/Details";
+
 import ProfileEditor from "./profile/ProfileEditor";
 import { Provider } from "react-redux";
 import store from "./store";
