@@ -8,7 +8,7 @@ function Nav() {
     <Link className="float-start nav-linkx" to="/">
      Home
     </Link>
-    <Link className="float-end nav-linkx" to="/Profile">
+    <Link className="float-end nav-linkx" to="/Profile/1">
      Profile
     </Link>
     <Link className="float-end nav-linkx" to="/Screenings">

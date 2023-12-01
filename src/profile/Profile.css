@@ -1,0 +1,39 @@
+/* Style for the profile picture */
+.img-fluid {
+  width: 200px;
+  height: 200px;
+}
+
+/* Style for the private information section */
+.private-info {
+  margin-top: 20px;
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+}
+
+/* Style for followers/following lists */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  margin-bottom: 5px;
+}
+
+.bg-mint {
+  background-color: #bff3c5;
+}
+
+.wb-link {
+  color: #000;
+  text-decoration: none;
+}
+
+.wd-li {
+  transition: all 0.3s ease; 
+}
+
+.wd-li:hover {
+  transform: scale(1.03); 
+}
