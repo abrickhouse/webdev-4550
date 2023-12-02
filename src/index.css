@@ -13,6 +13,7 @@ code {
 }
 .nav {
  display: flex;
+ width: auto;
  flex-wrap: wrap;
  padding-left: 0;
  margin-bottom: 0;
@@ -98,25 +99,27 @@ a {
  text-decoration: none;
 }
 
-body.login{
+
+.container.sign1{
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   background-color: #242424;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
- -webkit-font-smoothing: antialiased;
- -moz-osx-font-smoothing: grayscale;
-
+  width: auto;
 }
 
-.form-group.login{
+.background-sign{
+  background-color: #242424;
+}
+
+.form-group.sign{
   margin-bottom: 25px;
+  width: 300px;
 }
 
-.container.login{
-  width: 35%;
+.container.sign{
+  width: auto;
   height: 100%;
   padding: 50px;
   border-radius: 4px;
@@ -129,7 +132,7 @@ body.login{
   color: #bff3c5;
 }
 
-.btn-login{
+.btn-sign{
   width: 200px;
   height: 40px;
   border-radius: 4px;
@@ -137,11 +140,11 @@ body.login{
   background-color: #bff3c5;
 }
 
-.register-sent{
+.sign-sent{
   color: #bff3c5
 }
 
-.register-link{
+.sign-link{
   text-decoration: none;
 }
 
@@ -158,4 +161,8 @@ body.login{
 .home .list-group-item.active{
   background-color: #242424;
   
+}
+
+.form-check.sign{
+  color:#bff3c5
 }

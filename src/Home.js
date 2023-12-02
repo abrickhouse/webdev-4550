@@ -41,22 +41,6 @@ function Home() {
   <div class="px-2 bg-main">
    <Nav />
    <p>Upcoming Movies</p>
-   <ul>
-    <div className="d-flex">
-        {upcomingMovies.map(movie => (
-          <li key={movie.id}>
-            {movie.poster_path && (
-              <img
-                src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                alt={`${movie.title} Poster`}
-                style={{ width: "100px", height: "150px" }} // Adjust the image size
-              />
-            )}
-          </li>
-        ))}
-    </div>
-  </ul>
-
    <div className="container home">
       <div className="row">
           <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12">
