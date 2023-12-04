@@ -7,24 +7,22 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileReducer from "./ProfileReducer";
 
-
-// Profile page for the logged in user
+// Profile page for a user. Only displays sensitive information if this screen is the logged in user's profile
 function Profile() {
   const { uId } = useParams();
   const users = useSelector((state) => state.profile.users);
   const user = users.find((user) => user.id === parseInt(uId));
 
-  const [showFollowers, setShowFollowers] = useState(false);
-  const [showFollowing, setShowFollowing] = useState(false);
-  const [showReviews, setShowReviews] = useState(false);
-  const [showLikes, setShowLikes] = useState(false);
-  const [showAddedMovies, setShowAddedMovies] = useState(false);
-  const [showResponses, setShowResponses] = useState(false);
+  const [showFollowers, setShowFollowers] = useState(true);
+  const [showFollowing, setShowFollowing] = useState(true);
+  const [showReviews, setShowReviews] = useState(true);
+  const [showLikes, setShowLikes] = useState(true);
+  const [showAddedMovies, setShowAddedMovies] = useState(true);
+  const [showResponses, setShowResponses] = useState(true);
 
   // generate a list of followers and following from the indices in the user object
   const followers = users.filter((u) => user.followers.includes(u.id));
   const following = users.filter((u) => user.following.includes(u.id));
-  
 
   return (
     <div className="px-2 bg-main bg-dark">
@@ -33,7 +31,7 @@ function Profile() {
       <div className="container mt-4">
         <div className="row">
           {/* column for Profile Picture, Name, and Bio */}
-          <div className="col-md-4 border rounded p-4 me-3 bg-mint">
+          <div className="col-md-4 border rounded p-4 me-3 mt-2 bg-mint wd-scrollable-div">
             <img
               src={user.profilePicture}
               alt="Profile"
@@ -59,17 +57,17 @@ function Profile() {
           </div>
 
           {/* column for reviews/likes or added movies/responses depending on user type */}
-          <div className="col-md-4 rounded p-4 me-3 bg-mint">
+          <div className="col-md-4 rounded p-4 me-3 mt-2 bg-mint wd-scrollable-div">
             {user.userType === "Typical User" && (
               <div>
-                <h2>
+                <div className="wd-section mb-3">
                   <button
-                    className="btn btn-light text-center me-2"
+                    className="btn btn-light form-control"
                     onClick={() => setShowReviews(!showReviews)}
                   >
-                    {showReviews ? "Hide Reviews" : "Display Reviews"}
+                    {showReviews ? "Hide Reviews" : "Display Reviews"} ({user.reviews.length})
                   </button>{" "}
-                </h2>
+                </div>
                 {showReviews && (
                   <ul className="list-group">
                     {user.reviews.map((review, index) => (
@@ -82,15 +80,14 @@ function Profile() {
                     ))}
                   </ul>
                 )}
-
-                <h2>
+                <div className="wd-section mb-3">
                   <button
-                    className="btn btn-light text-center me-2"
+                    className="btn btn-light mt-4 form-control"
                     onClick={() => setShowLikes(!showLikes)}
                   >
-                    {showLikes ? "Hide Likes" : "Display Likes"}
+                    {showLikes ? "Hide Likes" : "Display Likes"} ({user.likes.length})
                   </button>
-                </h2>
+                </div>
                 {showLikes && (
                   <ul className="list-group">
                     {user.likes.map((likedMovie, index) => (
@@ -107,14 +104,14 @@ function Profile() {
             )}
             {user.userType === "Director" && (
               <div>
-                <h2>
+                <div className="wd-section mb-3">
                   <button
-                    className="btn btn-light text-center me-2"
+                    className="btn btn-light form-control"
                     onClick={() => setShowAddedMovies(!showAddedMovies)}
                   >
                     {showAddedMovies ? "Hide Added Movies" : "Display Added Movies"}
                   </button>
-                </h2>
+                </div>
                 {showAddedMovies && (
                   <ul className="list-group">
                     {user.addedMovies.map((addedMovie, index) => (
@@ -127,15 +124,14 @@ function Profile() {
                     ))}
                   </ul>
                 )}
-
-                <h2>
+                <div className="wd-section mb-3">
                   <button
-                    className="btn btn-light text-center me-2"
+                    className="btn btn-light mt-4 form-control"
                     onClick={() => setShowResponses(!showResponses)}
                   >
                     {showResponses ? "Hide Responses" : "Display Responses"}
                   </button>
-                </h2>
+                </div>
                 {showResponses && (
                   <ul className="list-group">
                     {user.responsesToReviews.map((response, index) => (
@@ -151,37 +147,35 @@ function Profile() {
               </div>
             )}
           </div>
-
           {/* column for followers/following */}
-          <div className="col-md rounded p-4 bg-mint">
-            <h2>
+          <div className="col-md rounded p-4 mt-2 bg-mint wd-scrollable-div">
+            <div className="wd-section mb-3">
               <button
-                className="btn btn-light text-center me-2"
+                className="btn btn-light form-control"
                 onClick={() => setShowFollowers(!showFollowers)}
               >
-                {showFollowers ? "Hide Followers" : "Display Followers"}
+                {showFollowers ? "Hide Followers" : "Display Followers"} ({followers.length})
               </button>
-            </h2>
+            </div>
             {showFollowers && (
               <ul className="list-group">
                 {followers.map((f) => (
                   <Link className="wb-link" to={`/profile/${f.id}`}>
                     <li className="list-group-item border-dark border-2 rounded wd-li" key={f.id}>
                       {f.name}
-                      {console.log(f.name)}
                     </li>
                   </Link>
                 ))}
               </ul>
             )}
-            <h2>
+            <div className="wd-section mb-3">
               <button
-                className="btn btn-light text-center me-2"
+                className="btn btn-light mt-4 form-control"
                 onClick={() => setShowFollowing(!showFollowing)}
               >
-                {showFollowing ? "Hide Following" : "Display Following"}
-              </button>{" "}
-            </h2>
+                {showFollowing ? "Hide Following" : "Display Following"} ({following.length})
+              </button>
+            </div>
             {showFollowing && (
               <ul className="list-group">
                 {following.map((f) => (

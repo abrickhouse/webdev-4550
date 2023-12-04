@@ -37,3 +37,16 @@ ul li {
 .wd-li:hover {
   transform: scale(1.03); 
 }
+
+.wd-scrollable-div {
+  max-height: 500px; 
+  overflow-y: auto; 
+  overflow-x: hidden; 
+}
+
+.wd-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
