@@ -25,7 +25,7 @@ ul li {
   background-color: #bff3c5;
 }
 
-.wb-link {
+.wd-link {
   color: #000;
   text-decoration: none;
 }
@@ -39,7 +39,15 @@ ul li {
 }
 
 .wd-scrollable-div {
-  max-height: 500px; 
+  max-height: 550px; 
+  overflow-y: auto; 
+  overflow-x: hidden; 
+}
+
+/* this one is for when this profile is not the current */
+.wd-scrollable-div-large {
+  height: 1000px;
+  max-height: 700px;
   overflow-y: auto; 
   overflow-x: hidden; 
 }
