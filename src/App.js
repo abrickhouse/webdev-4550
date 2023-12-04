@@ -2,7 +2,6 @@ import logo from "./logo.svg";
 import "./App.css";
 import { HashRouter } from "react-router-dom";
 import { Routes, Route, Navigate } from "react-router";
-import Nav from "./Nav";
 import Home from "./Home";
 import Screenings from "./screenings/Screenings";
 import Search from "./search/Search";
