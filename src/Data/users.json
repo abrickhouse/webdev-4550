@@ -19,11 +19,6 @@
   "bio": "Michelin-starred chef & TV personality. Passionate about cooking and honest critiques. Catch me on 'Hell's Kitchen' & 'MasterChef.' Let's cook up something amazing! Don't be an idiot sandwich!",
   "profilePicture": "https://people.com/thmb/O6PzGMHZplKPtMekeJJSoqQFIIU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(749x0:751x2)/gordon-ramsay-10-8dbbe3821e5a4dcba91b133523c525c0.jpg",
   "userType": "Director",
-  "addedMovies": ["movie1", "movie2"],
-  "responsesToReviews": [
-   "Thank you for your review of Finding Nemo! It's a beautiful tale indeed.",
-   "Glad you found Borat entertaining. We aimed for something different."
-  ],
   "email": "chefgordon@example.com",
   "phoneNumber": "987-654-3210",
   "address": "7 Culinary Lane, London, UK"
@@ -61,11 +56,6 @@
   "bio": "Film director, producer, and screenwriter. Bringing stories to life through movies. Let's create cinematic magic!",
   "profilePicture": "https://img.freepik.com/premium-vector/anonymous-user-circle-icon-vector-illustration-flat-style-with-long-shadow_520826-1931.jpg",
   "userType": "Director",
-  "addedMovies": ["movie3", "movie4"],
-  "responsesToReviews": [
-   "Glad you enjoyed The Shawshank Redemption. It's a film close to my heart.",
-   "Thanks for appreciating the complexity of Inception. It was a challenge to craft!"
-  ],
   "email": "spielberg@example.com",
   "phoneNumber": "777-888-9999",
   "address": "890 Hollywood Boulevard, Los Angeles, USA"
@@ -78,11 +68,6 @@
   "bio": "Director, producer, and screenwriter. Embracing unconventional storytelling through movies.",
   "profilePicture": "https://img.freepik.com/premium-vector/anonymous-user-circle-icon-vector-illustration-flat-style-with-long-shadow_520826-1931.jpg",
   "userType": "Director",
-  "addedMovies": ["movie5", "movie6"],
-  "responsesToReviews": [
-   "Glad you enjoyed Pulp Fiction's unique style. It was a blast to create!",
-   "Thanks for your love for The Godfather. It's a timeless classic."
-  ],
   "email": "quentin@example.com",
   "phoneNumber": "101-202-3030",
   "address": "456 Movie Lane, Filmtown, USA"
@@ -311,8 +296,6 @@
   "bio": "Director.",
   "profilePicture": "https://img.freepik.com/premium-vector/anonymous-user-circle-icon-vector-illustration-flat-style-with-long-shadow_520826-1931.jpg",
   "userType": "Director",
-  "addedMovies": [],
-  "responsesToReviews": [],
   "email": "reeves@example.com",
   "phoneNumber": "101-404-3030",
   "address": "456 Movie Lane, Filmtown, USA"
@@ -325,8 +308,6 @@
   "bio": "Director.",
   "profilePicture": "https://img.freepik.com/premium-vector/anonymous-user-circle-icon-vector-illustration-flat-style-with-long-shadow_520826-1931.jpg",
   "userType": "Director",
-  "addedMovies": [],
-  "responsesToReviews": [],
   "email": "gerwig@example.com",
   "phoneNumber": "101-505-3030",
   "address": "456 Movie Lane, Filmtown, USA"
@@ -339,8 +320,6 @@
   "bio": "Director.",
   "profilePicture": "https://img.freepik.com/premium-vector/anonymous-user-circle-icon-vector-illustration-flat-style-with-long-shadow_520826-1931.jpg",
   "userType": "Director",
-  "addedMovies": [],
-  "responsesToReviews": [],
   "email": "anderson@example.com",
   "phoneNumber": "101-606-3030",
   "address": "456 Movie Lane, Filmtown, USA"

@@ -1,8 +1,8 @@
 import { React, useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./App.css";
-import screenings from "./Data/screenings.json";
+import "../App.css";
+import screenings from "../Data/screenings.json";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
@@ -58,45 +58,25 @@ function Screening(props) {
   getInfo();
  }, [screenings]);
  return (
-  <li class="round  my-1">
+  <li class="round my-1">
    {result && (
-    <div class="grid row d-flex align-items-center">
-     <div class="my-2 peek row grid ">
-      <div class="d-flex justify-content-between">
+    <div class="my-2 peek">
+     <div>
+      <div class="">
+       {" "}
+       <img
+        className="mx-1 my-2"
+        style={{ height: "100px", width: "auto" }}
+        alt="poster"
+        src={`https://image.tmdb.org/t/p/w300/${result.poster_path}`}
+       />{" "}
        <div>
-        <div class="d-flex">
-         {" "}
-         <img
-          className="col-2 mx-1"
-          style={{ height: "200px", width: "auto" }}
-          alt="poster"
-          src={`https://image.tmdb.org/t/p/w300/${result.poster_path}`}
-         />{" "}
-         <div>
-          {" "}
-          <h1 class="mx-2">
-           {result.original_title
-            ? result.original_title
-            : result.original_name}
-          </h1>
-          {user && (
-           <h6 class="mx-2 col">
-            Created by User:{" "}
-            <Link to={`/profile/${user.id}`} className="col">
-             {props.user}
-            </Link>
-           </h6>
-          )}
-          <div class="mx-2">Runtime: {result.runtime} min</div>
-          <div class="mx-2">Date: {props.date}</div>
-         </div>
-        </div>
-       </div>
-       <div className="flex-shrink-1 align-items-end flex-column">
-        <button class="btnx py-0 px-2 float-end" onClick={handleJoin}>
-         Join
-        </button>
-        <div class="my-3">Viewers: {views}</div>
+        {" "}
+        <h6 class="mx-2">
+         {result.original_title ? result.original_title : result.original_name}
+        </h6>
+        <div class="mx-2">Date: {props.date}</div>
+        <div class="mx-2">Viewers: {views}</div>
        </div>
       </div>
      </div>

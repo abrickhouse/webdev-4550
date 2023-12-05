@@ -6,7 +6,7 @@ import React, { Component } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Review from "../Review";
+import Review from "./Review";
 import reviews from "../Data/reviews.json";
 import Modal from "react-modal";
 
@@ -118,7 +118,13 @@ function Details() {
        {reviews
         .filter((r) => r.movie_id == id)
         .map((rev) => (
-         <Review user={rev.user} rating={rev.rating} comment={rev.comment} />
+         <Review
+          id={rev._id}
+          movie={rev.movie_id}
+          user={rev.user}
+          rating={rev.rating}
+          comment={rev.comment}
+         />
         ))}
       </div>
      </div>

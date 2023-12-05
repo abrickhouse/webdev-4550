@@ -24,6 +24,12 @@
  color: white;
 }
 
+.res {
+ background-color: rgb(222, 250, 226);
+ border-radius: 10px;
+ padding: 10px;
+}
+
 .App-link {
  color: #61dafb;
 }

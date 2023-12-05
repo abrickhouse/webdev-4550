@@ -2,10 +2,13 @@ import { useParams } from "react-router-dom";
 import Nav from "../Nav";
 import React, { useState } from "react";
 import "./Profile.css";
-import Review from "../Review";
+import Review from "../search/Review";
+import MiniScreening from "../screenings/MiniScreening";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import reviews from "../Data/reviews.json";
+import screenings from "../Data/screenings.json";
+import response from "../Data/response.json";
 
 // Profile page for a user. Only displays sensitive information if this screen is the logged in user's profile
 function Profile() {
@@ -23,7 +26,6 @@ function Profile() {
  const [showFollowers, setShowFollowers] = useState(true);
  const [showFollowing, setShowFollowing] = useState(true);
  const [showReviews, setShowReviews] = useState(true);
- const [showLikes, setShowLikes] = useState(true);
  const [showAddedMovies, setShowAddedMovies] = useState(true);
  const [showResponses, setShowResponses] = useState(true);
 
@@ -129,6 +131,8 @@ function Profile() {
              state={{ from: `/profile/${user.id}` }}
             >
              <Review
+              id={review._id}
+              movie={review.movie_id}
               user={review.user}
               rating={review.rating}
               comment={review.comment}
@@ -146,21 +150,26 @@ function Profile() {
           className="btn btn-light form-control"
           onClick={() => setShowAddedMovies(!showAddedMovies)}
          >
-          {showAddedMovies ? "Hide Added Movies" : "Display Added Movies"}
+          {showAddedMovies ? "Hide Screenings" : "Display Screenings"}
          </button>
         </div>
         {showAddedMovies && (
          <ul className="list-group">
-          {user.addedMovies.map((addedMovie, index) => (
-           <li
-            // to={`/movie/${addedMovie.id}`}
-            className="list-group-item border-dark border-2 rounded wd-li"
-            key={index}
-           >
-            {/* {addedMovie.title} */}
-            {addedMovie}
-           </li>
-          ))}
+          {screenings
+           .filter((s) => s.user === user.name)
+           .map((addedMovie, index) => (
+            <li
+             className="list-group-item border-dark border-2 rounded wd-li"
+             key={index}
+            >
+             <MiniScreening
+              user={user.name}
+              date={addedMovie.date}
+              viewers={addedMovie.viewers.length}
+              movie={addedMovie.movie_id}
+             />
+            </li>
+           ))}
          </ul>
         )}
         <div className="wd-section mb-3">
@@ -173,14 +182,21 @@ function Profile() {
         </div>
         {showResponses && (
          <ul className="list-group">
-          {user.responsesToReviews.map((response, index) => (
-           <li
-            className="list-group-item border-dark border-2 rounded wd-li"
-            key={index}
-           >
-            {response}
-           </li>
-          ))}
+          {response
+           .filter((r) => r.user === user.name)
+           .map((response, index) => (
+            <Link
+             to={`/details/${response.movie_id}`}
+             state={{ from: `/profile/${user.id}` }}
+            >
+             <li
+              className="list-group-item border-dark border-2 rounded wd-li"
+              key={index}
+             >
+              <div>{response.comment}</div>
+             </li>
+            </Link>
+           ))}
          </ul>
         )}
        </div>

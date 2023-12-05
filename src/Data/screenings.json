@@ -19,5 +19,12 @@
   "user": "wes_anderson",
   "date": "2023-12-13",
   "viewers": []
+ },
+ {
+  "_id": "4",
+  "movie_id": "804095",
+  "user": "Steven Spielberg",
+  "date": "2024-1-13",
+  "viewers": ["Guy Fieri"]
  }
 ]
