@@ -61,6 +61,13 @@ code {
 button:active {
  box-shadow: inset 0px 0px 80px 0px rgba(0, 0, 0, 0.2);
 }
+a {
+ text-decoration: none;
+ color: #393939;
+}
+.col {
+ color: #393939;
+}
 .bg-main {
  background-color: #eeeeee;
  min-height: 100vh;
@@ -99,70 +106,68 @@ a {
  text-decoration: none;
 }
 
-
-.container.sign1{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #242424;
-  width: auto;
+.container.sign1 {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ min-height: 100vh;
+ background-color: #242424;
+ width: auto;
 }
 
-.background-sign{
-  background-color: #242424;
+.background-sign {
+ background-color: #242424;
 }
 
-.form-group.sign{
-  margin-bottom: 25px;
-  width: 300px;
+.form-group.sign {
+ margin-bottom: 25px;
+ width: 300px;
 }
 
-.container.sign{
-  width: auto;
-  height: 100%;
-  padding: 50px;
-  border-radius: 4px;
-  background-color: transparent;
-  border: 2px solid #bff3c5;
+.container.sign {
+ width: auto;
+ height: 100%;
+ padding: 50px;
+ border-radius: 4px;
+ background-color: transparent;
+ border: 2px solid #bff3c5;
 }
 
-.webtitle{
-  margin-bottom: 30px;
-  color: #bff3c5;
+.webtitle {
+ margin-bottom: 30px;
+ color: #bff3c5;
 }
 
-.btn-sign{
-  width: 200px;
-  height: 40px;
-  border-radius: 4px;
-  border: 2px solid black;
-  background-color: #bff3c5;
+.btn-sign {
+ width: 200px;
+ height: 40px;
+ border-radius: 4px;
+ border: 2px solid black;
+ background-color: #bff3c5;
 }
 
-.sign-sent{
-  color: #bff3c5
+.sign-sent {
+ color: #bff3c5;
 }
 
-.sign-link{
-  text-decoration: none;
+.sign-link {
+ text-decoration: none;
 }
 
-.home .list-group{
-  margin-bottom: 40px;
-  width: 100%;
+.home .list-group {
+ margin-bottom: 40px;
+ width: 100%;
 }
 
-.home .list-group-item{
-  background-color: #bff3c5;
-  width: 100%;
+.home .list-group-item {
+ background-color: #bff3c5;
+ width: 100%;
 }
 
-.home .list-group-item.active{
-  background-color: #242424;
-  
+.home .list-group-item.active {
+ background-color: #242424;
 }
 
-.form-check.sign{
-  color:#bff3c5
+.form-check.sign {
+ color: #bff3c5;
 }

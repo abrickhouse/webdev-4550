@@ -134,9 +134,51 @@
  },
  {
   "_id": "9",
+  "movie_id": "12",
+  "user": "Guy Fieri",
+  "rating": 5,
+  "comment": "Finding Nemo was an amazing movie! Loved the storyline and animation."
+ },
+ {
+  "_id": "10",
   "movie_id": "37165",
   "user": "maddie",
   "rating": 5,
   "comment": "i think it’s an understatement saying that this film changed me"
+ },
+ {
+  "_id": "11",
+  "movie_id": "496",
+  "user": "Guy Fieri",
+  "rating": 4,
+  "comment": "Borat was a hilarious satire, very unique and entertaining."
+ },
+ {
+  "_id": "12",
+  "movie_id": "278",
+  "user": "Rachel Ray",
+  "rating": 5,
+  "comment": "Such a powerful movie, left me speechless."
+ },
+ {
+  "_id": "13",
+  "movie_id": "27205",
+  "user": "Rachel Ray",
+  "rating": 5,
+  "comment": "Mind-bending and brilliant storytelling!"
+ },
+ {
+  "_id": "14",
+  "movie_id": "680",
+  "user": "Anthony Bourdain",
+  "rating": 5,
+  "comment": "Classic Tarantino style, loved every minute!"
+ },
+ {
+  "_id": "15",
+  "movie_id": "238",
+  "user": "Anthony Bourdain",
+  "rating": 5,
+  "comment": "A masterpiece in every sense."
  }
 ]

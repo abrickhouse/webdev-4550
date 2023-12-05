@@ -4,10 +4,15 @@ import { Link } from "react-router-dom";
 import "./App.css";
 import screenings from "./Data/screenings.json";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 function Screening(props) {
  const [result, setResult] = useState();
  const [views, setViews] = useState(props.viewers);
+
+ const users = useSelector((state) => state.profile.users);
+ const user = users.filter((u) => props.user === u.name)[0];
+
  const options = {
   method: "GET",
   url: `https://api.themoviedb.org/3/movie/${props.movie}?language=en-US`,
@@ -62,8 +67,8 @@ function Screening(props) {
         <div class="d-flex">
          {" "}
          <img
-          className=" mx-1"
-          style={{ height: "200px" }}
+          className="col-2 mx-1"
+          style={{ height: "200px", width: "auto" }}
           alt="poster"
           src={`https://image.tmdb.org/t/p/w300/${result.poster_path}`}
          />{" "}
@@ -74,7 +79,14 @@ function Screening(props) {
             ? result.original_title
             : result.original_name}
           </h1>
-          <h6 class="mx-2">Created by User: {props.user}</h6>
+          {user && (
+           <h6 class="mx-2 col">
+            Created by User:{" "}
+            <Link to={`/profile/${user.id}`} className="col">
+             {props.user}
+            </Link>
+           </h6>
+          )}
           <div class="mx-2">Runtime: {result.runtime} min</div>
           <div class="mx-2">Date: {props.date}</div>
          </div>

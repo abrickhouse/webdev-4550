@@ -1,5 +1,5 @@
 import Nav from "../Nav";
-import { HashRouter } from "react-router-dom";
+import { HashRouter, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Routes, Route, Navigate } from "react-router";
 import React, { Component } from "react";
@@ -12,6 +12,8 @@ import Modal from "react-modal";
 
 function Details() {
  const { id } = useParams();
+ const location = useLocation();
+ const { from } = location.state;
  const [result, setResult] = useState();
  const options = {
   method: "GET",
@@ -70,7 +72,7 @@ function Details() {
   <div class="px-2 bg-main">
    {" "}
    <Nav />
-   <Link to="/search" class="link">
+   <Link to={from} class="link">
     {" "}
     <i className="fa fa-chevron-left float-start mx-1 my-1"></i> Back to Search
    </Link>
