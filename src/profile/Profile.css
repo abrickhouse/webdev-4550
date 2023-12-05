@@ -40,3 +40,23 @@ ul li {
 a {
  text-decoration: none;
 }
+
+.wd-scrollable-div {
+ max-height: 550px;
+ overflow-y: auto;
+ overflow-x: hidden;
+}
+
+/* this one is for when this profile is not the current */
+.wd-scrollable-div-large {
+ height: 1000px;
+ max-height: 700px;
+ overflow-y: auto;
+ overflow-x: hidden;
+}
+
+.wd-section {
+ display: flex;
+ align-items: center;
+ margin-bottom: 10px;
+}

@@ -33,10 +33,4 @@ mapped to "/profile"
 - Other Profile Page:
 mapped to "/profile/{profileId}"
 
-- Displays "Public Available Info" only.
-
-
-
-TO DO:
-- make editor feature for profile info
-- work on viewProfile
+- Displays "Publicly Available Info" only.

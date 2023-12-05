@@ -16,8 +16,8 @@ function ProfileEditor() {
 
   // Local state to manage input values
   const [editedUser, setEditedUser] = useState({
-    ...user});
-
+    ...user,
+  });
 
   const handleSave = () => {
     handleUpdateUser(editedUser);
@@ -38,8 +38,18 @@ function ProfileEditor() {
       - THIS MAKES SURE YOU CANT CHANGE URL AND EDIT OTHER USERS PROFILES
 
     */
-    <div className="container mt-4 bg-main bg-dark">
-      <h1 className="text-white text-center p-3">Edit Your Profile</h1>
+    <div
+      className="container bg-main bg-dark m-0 px-4"
+      style={{
+        width: "100%",
+        maxWidth: "100%",
+        maxHeight: "100%",
+        height: "100vh",
+        minHeight: "100vh", 
+        overflowY: "auto", 
+      }}
+    >
+      <h1 className="text-white text-center p-4">Edit Your Profile</h1>
       <div className="mb-3 rounded bg-mint">
         <label htmlFor="name" className="form-label pt-2 ps-2">
           Name
