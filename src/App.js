@@ -9,7 +9,7 @@ import Profile from "./profile/Profile";
 import Details from "./search/Details";
 import ProfileEditor from "./profile/ProfileEditor";
 import Signin from "./login/Signin";
-import { Signup } from "./login/Signup";
+import Signup from "./login/Signup";
 import { Provider } from "react-redux";
 import store from "./store";
 import SearchRes from "./search/SearchRes";

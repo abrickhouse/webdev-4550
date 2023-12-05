@@ -74,7 +74,7 @@ function Details() {
    <Nav />
    <Link to={from} class="link">
     {" "}
-    <i className="fa fa-chevron-left float-start mx-1 my-1"></i> Back to Search
+    <i className="fa fa-chevron-left float-start mx-1 my-1"></i> Back
    </Link>
    {result && (
     <div class="grid round outline mx-3 my-3">
