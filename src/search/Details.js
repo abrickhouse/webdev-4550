@@ -81,6 +81,7 @@ function Details() {
      <div className=" row">
       <img
        className="col-2 mx-1"
+       style={{ height: "30vw", width: "auto" }}
        alt="poster"
        src={`https://image.tmdb.org/t/p/w300/${result.poster_path}`}
       />
