@@ -14,8 +14,6 @@ import { Provider } from "react-redux";
 import store from "./store";
 import SearchRes from "./search/SearchRes";
 import CurrentUser from "./login/CurrentUser"
-import Information from "./admin/information";
-import ProtectedAdminRoute from "./admin/ProtectedAdminRoute";
 
 function App() {
  return (
@@ -33,6 +31,10 @@ function App() {
           <Route path="/profile/:uId" element={<Profile />} />
           <Route path="/profile/profileEditor/:uId" element={<ProfileEditor />} />
           <Route path="/details/:id" element={<Details />} />
+          <Route path="/admin/*" element={
+            <ProtectedAdminRoute>
+            <Information />
+            </ProtectedAdminRoute>} />
         </Routes>
         </div>
       </HashRouter>
