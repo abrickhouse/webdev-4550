@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import ProtectedAdminRoute from "./admin/ProtectedAdminRoute";
 
 function Nav() {
  return (
@@ -8,7 +9,12 @@ function Nav() {
     <Link className="float-start nav-linkx" to="/">
      Home
     </Link>
-    <Link className="float-end nav-linkx" to="/Signin">
+    <ProtectedAdminRoute>
+    <Link className="float-end nav-linkx" to="/admin">
+      Admin
+    </Link>
+    </ProtectedAdminRoute>
+    <Link className="float-end nav-linkx" to="/login">
       Login
     </Link>
     <Link className="float-end nav-linkx" to="/Profile/1">

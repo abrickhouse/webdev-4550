@@ -13,25 +13,34 @@ import Signup from "./login/Signup";
 import { Provider } from "react-redux";
 import store from "./store";
 import SearchRes from "./search/SearchRes";
+import CurrentUser from "./login/CurrentUser"
+import Information from "./admin/Information";
+import ProtectedAdminRoute from "./admin/ProtectedAdminRoute";
 
 function App() {
  return (
   <Provider store={store}>
-   <HashRouter>
-    <div class="body">
-     <Routes>
-      <Route path="/signin/*" element={<Signin />} />
-      <Route path="/signup/*" element={<Signup />} />
-      <Route path="/" element={<Home />} />
-      <Route path="/screenings/*" element={<Screenings />} />
-      <Route path="/search/" element={<Search />} />
-      <Route path="/result/:que" element={<SearchRes />} />
-      <Route path="/profile/:uId" element={<Profile />} />
-      <Route path="/profile/profileEditor/:uId" element={<ProfileEditor />} />
-      <Route path="/details/:id" element={<Details />} />
-     </Routes>
-    </div>
-   </HashRouter>
+    <CurrentUser>
+      <HashRouter>
+        <div class="body">
+        <Routes>
+          <Route path="/login/*" element={<Signin />} />
+          <Route path="/register/*" element={<Signup />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/screenings/*" element={<Screenings />} />
+          <Route path="/search/" element={<Search />} />
+          <Route path="/result/:que" element={<SearchRes />} />
+          <Route path="/profile/:uId" element={<Profile />} />
+          <Route path="/profile/profileEditor/:uId" element={<ProfileEditor />} />
+          <Route path="/details/:id" element={<Details />} />
+          <Route path="/admin/*" element={
+            <ProtectedAdminRoute>
+            <Information />
+            </ProtectedAdminRoute>} />
+        </Routes>
+        </div>
+      </HashRouter>
+   </CurrentUser>
   </Provider>
  );
 }

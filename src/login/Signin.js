@@ -1,16 +1,18 @@
 import * as client from "./client";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "./UserReducer";
 import Nav from "../Nav";
 
 function Signin() {
   const [credentials, setCredentials] = useState({ username: "", password: "" });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const signin = async () => {
     try {
-      console.log(credentials);
-      await client.signin(credentials);
-      console.log('Sign-in successful');
+      const user = await client.signin(credentials);
+      dispatch(setCurrentUser(user))
       navigate("/");
     } catch (error) {
       console.error("Sign-in failed:", error);
@@ -32,7 +34,7 @@ function Signin() {
             <div className="form-group sign">
               <input type="password" class="form-control" placeholder="Password" value={credentials.password} onChange={(e) => setCredentials({...credentials, password: e.target.value})}/>
             </div>
-            <p className="sign-sent"> Don't have an account? <a href="#/signup/*" className="sign-link">Sign up</a></p>
+            <p className="sign-sent"> Don't have an account? <a href="#/register/*" className="sign-link">Sign up</a></p>
             <div className="d-flex justify-content-center">
               <button type="submit" class="btn-sign" onClick={signin}>Login</button>
             </div>

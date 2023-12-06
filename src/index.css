@@ -171,3 +171,9 @@ a {
 .form-check.sign {
  color: #bff3c5;
 }
+
+.table.admintable{
+  border: 4px solid #bff3c5;
+  --bs-table-bg:#393939;
+  --bs-table-color: white;
+}

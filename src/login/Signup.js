@@ -15,7 +15,7 @@ function Signup(){
   const signup = async () => {
     try {
       await client.signup(credentials);
-      navigate("/signin");
+      navigate("/login");
     } catch (err) {
       console.log("error");
     }
@@ -29,11 +29,7 @@ function Signup(){
           <div className="d-flex justify-content-center">
           <h2 className="webtitle">Create an account</h2>
           </div>
-          <form>
-            <div className="form-group sign">
-              <input type="text" class="form-control" placeholder="First Name" value={credentials.firstname} 
-              onChange={(e) => setCredentials({ ...credentials, firstname: e.target.value })} />
-            </div>          
+          <form>         
             <div className="form-group sign">
               <input type="text" class="form-control" placeholder="Username" value={credentials.username} 
               onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}/>
@@ -68,7 +64,7 @@ function Signup(){
               </div>
             </div>
 
-            <p className="sign-sent"> Already have an account? <a href="#/signin/*" className="sign-link">Login now</a></p>
+            <p className="sign-sent"> Already have an account? <a href="#/login/*" className="sign-link">Login now</a></p>
             <div className="d-flex justify-content-center">
               <button type="submit" class="btn-sign" onClick={signup}>Sign Up</button>
             </div>
