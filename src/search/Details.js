@@ -7,8 +7,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import * as client from "./client";
 import Review from "./Review";
-import reviews from "../Data/reviews.json";
 import Modal from "react-modal";
 
 function Details() {
@@ -17,6 +17,14 @@ function Details() {
  const { currentUser } = useSelector((state) => state.UserReducer);
  const { from } = location.state;
  const [result, setResult] = useState();
+ const [reviews, setReviews] = useState([]);
+
+ const fetchReviews = async () => {
+  const revs = await client.findAllReviews();
+  console.log(revs);
+  setReviews(revs);
+ };
+
  const options = {
   method: "GET",
   url: `https://api.themoviedb.org/3/movie/${id}?language=en-US`,
@@ -28,7 +36,6 @@ function Details() {
  };
 
  const getInfo = async () => {
-  console.log("get info!!");
   axios
    .request(options)
    .then(function (response) {
@@ -48,18 +55,22 @@ function Details() {
   setOpen(false);
  };
 
- const handleSave = () => {
+ const handleSave = async () => {
   setOpen(false);
-  reviews = [
-   ...reviews,
-   {
-    _id: new Date().getTime().toString(),
-    movie_id: result.id,
-    user: currentUser.username,
-    comment: com,
-    rating: rat,
-   },
-  ];
+
+  const rev = {
+   _id: new Date().getTime().toString(),
+   movie_id: result.id,
+   user: currentUser.username,
+   comment: com,
+   rating: rat,
+  };
+  try {
+   const newRev = await client.createReview(rev);
+   setReviews([newRev, ...reviews]);
+  } catch (err) {
+   console.log(err);
+  }
  };
 
  const handleOpen = () => {
@@ -68,6 +79,7 @@ function Details() {
 
  useEffect(() => {
   getInfo();
+  fetchReviews();
  }, []);
 
  return (
