@@ -5,6 +5,7 @@ import { Routes, Route, Navigate } from "react-router";
 import React, { Component } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import Review from "./Review";
 import reviews from "../Data/reviews.json";
@@ -13,6 +14,7 @@ import Modal from "react-modal";
 function Details() {
  const { id } = useParams();
  const location = useLocation();
+ const { currentUser } = useSelector((state) => state.UserReducer);
  const { from } = location.state;
  const [result, setResult] = useState();
  const options = {
@@ -53,7 +55,7 @@ function Details() {
    {
     _id: new Date().getTime().toString(),
     movie_id: result.id,
-    user: "new",
+    user: currentUser.username,
     comment: com,
     rating: rat,
    },
@@ -110,9 +112,11 @@ function Details() {
        </h5>
        <div className="col-2">
         {" "}
-        <button onClick={handleOpen} class="btnx py-0  float-end">
-         Add a Review
-        </button>
+        {currentUser && currentUser.userType === "Typical User" && (
+         <button onClick={handleOpen} class="btnx py-0  float-end">
+          Add a Review
+         </button>
+        )}
        </div>
       </div>
       <div class="list-group">

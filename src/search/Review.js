@@ -5,6 +5,7 @@ import response from "../Data/response.json";
 import "../App.css";
 
 function Review(props) {
+ const { currentUser } = useSelector((state) => state.UserReducer);
  const [Repping, setRep] = useState(false);
  const [reply, setReply] = useState("");
  const users = useSelector((state) => state.profile.users);
@@ -23,7 +24,7 @@ function Review(props) {
     _id: response.length + 1,
     rev_id: props.id,
     movie_id: props.movie,
-    user: "fill later",
+    user: currentUser.username,
     comment: reply,
    },
   ];
@@ -64,7 +65,7 @@ function Review(props) {
       </div>
      ))}
    </div>
-   {!Repping && (
+   {currentUser && currentUser.userType === "Director" && !Repping && (
     <button class="btnx py-0 px-2 mx-4 float-end" onClick={(e) => setRep(true)}>
      Reply
     </button>

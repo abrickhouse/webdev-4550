@@ -8,7 +8,9 @@ import { useSelector } from "react-redux";
 
 function Screening(props) {
  const [result, setResult] = useState();
- const [views, setViews] = useState(props.viewers);
+ const [views, setViews] = useState(props.viewers.length);
+ const [joined, setJoined] = useState(false);
+ const { currentUser } = useSelector((state) => state.UserReducer);
 
  const users = useSelector((state) => state.profile.users);
  const user = users.filter((u) => props.user === u.name)[0];
@@ -32,11 +34,12 @@ function Screening(props) {
        movie_id: s.movie_id,
        user: s.user,
        date: s.date,
-       viewers: [...s.viewers, "new"],
+       viewers: [...s.viewers, currentUser.username],
       }
     : s
   );
   setViews(views + 1);
+  setJoined(true);
   console.log(screenings);
   console.log(result.id);
  };
@@ -93,9 +96,19 @@ function Screening(props) {
         </div>
        </div>
        <div className="flex-shrink-1 align-items-end flex-column">
-        <button class="btnx py-0 px-2 float-end" onClick={handleJoin}>
-         Join
-        </button>
+        {currentUser && currentUser.userType === "Typical User" && (
+         <div>
+          {!props.viewers.includes(currentUser.username) && !joined ? (
+           <button class="btnx py-0 px-2 float-end" onClick={handleJoin}>
+            Join
+           </button>
+          ) : (
+           <button disabled class="btnx py-0 px-2 float-end">
+            joined
+           </button>
+          )}
+         </div>
+        )}
         <div class="my-3">Viewers: {views}</div>
        </div>
       </div>

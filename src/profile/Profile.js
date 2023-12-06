@@ -17,10 +17,7 @@ function Profile() {
  const users = useSelector((state) => state.profile.users);
  const user = users.find((user) => user.id === parseInt(uId));
 
-const { currentUser } = useSelector((state) => state.UserReducer);
-
-
-
+ const { currentUser } = useSelector((state) => state.UserReducer);
 
  const LoggedInUserId = "1";
  const LoggedInUser = users.find((u) => u.id === LoggedInUserId);
@@ -172,7 +169,7 @@ const { currentUser } = useSelector((state) => state.UserReducer);
              <MiniScreening
               user={user.name}
               date={addedMovie.date}
-              viewers={addedMovie.viewers.length}
+              viewers={addedMovie.viewers}
               movie={addedMovie.movie_id}
              />
             </li>
