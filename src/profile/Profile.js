@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import "./Profile.css";
 import Review from "../search/Review";
 import MiniScreening from "../screenings/MiniScreening";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import reviews from "../Data/reviews.json";
 import screenings from "../Data/screenings.json";
@@ -17,15 +17,15 @@ function Profile() {
  const users = useSelector((state) => state.profile.users);
  const user = users.find((user) => user.id === parseInt(uId));
 
+ const navigate = useNavigate();
+
+ if (!user) {
+  navigate("/kanbas/signin");
+ }
+
  const { currentUser } = useSelector((state) => state.UserReducer);
-
- const LoggedInUserId = "1";
- const LoggedInUser = users.find((u) => u.id === LoggedInUserId);
-
  // boolean for if the logged in user is viewing their own profile
- const isOwnProfile = uId === LoggedInUserId;
-
- // const isOwnProfile = (uId === LoggedInUser.id);
+ const isOwnProfile = uId === currentUser;
 
  const [showFollowers, setShowFollowers] = useState(true);
  const [showFollowing, setShowFollowing] = useState(true);
@@ -272,8 +272,7 @@ function Profile() {
       )}
      </div>
 
-     {/* Private information only visible to the signed-in user 
-          Use some kind of if (loggedInUser = thisProfile){...} */}
+     {/* Private information only visible to the signed-in user */}
      {isOwnProfile && (
       <div className="private-info rounded bg-mint">
        <h2>Your Private Account Information</h2>
