@@ -4,7 +4,7 @@ import Nav from "../Nav";
 import Screening from "./Screening";
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
-import screenings from "../Data/screenings.json";
+import * as client from "../search/client.js";
 import { useSelector } from "react-redux";
 
 function Screenings() {
@@ -13,27 +13,42 @@ function Screenings() {
  const [mov, setMov] = useState("");
  const [dat, setDat] = useState("");
 
+ const [screenings, setScreenings] = useState([]);
+
+ const fetchScreenings = async () => {
+  const scs = await client.findAllScreenings();
+  setScreenings(scs);
+ };
+
  const handleClose = () => {
   setOpen(false);
  };
 
- const handleSave = () => {
+ const handleSave = async () => {
   setOpen(false);
-  screenings = [
-   ...screenings,
-   {
-    _id: new Date().getTime().toString(),
-    movie_id: mov,
-    user: currentUser.username,
-    date: dat,
-    viewers: [],
-   },
-  ];
+  const screen = {
+   _id: new Date().getTime().toString(),
+   movie_id: mov,
+   user: currentUser.username,
+   date: dat,
+   viewers: [],
+  };
+
+  try {
+   const newSc = await client.createScreening(screen);
+   setScreenings([newSc, ...screenings]);
+  } catch (err) {
+   console.log(err);
+  }
  };
 
  const handleOpen = () => {
   setOpen(true);
  };
+
+ useEffect(() => {
+  fetchScreenings();
+ }, []);
 
  return (
   <div class="px-2 bg-main">

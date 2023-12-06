@@ -2,8 +2,8 @@ import { React, useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
-import screenings from "../Data/screenings.json";
 import axios from "axios";
+import * as client from "../search/client.js";
 import { useSelector } from "react-redux";
 
 function Screening(props) {
@@ -15,6 +15,13 @@ function Screening(props) {
  const users = useSelector((state) => state.profile.users);
  const user = users.filter((u) => props.user === u.name)[0];
 
+ const [screenings, setScreenings] = useState([]);
+
+ const fetchScreenings = async () => {
+  const scs = await client.findAllScreenings();
+  setScreenings(scs);
+ };
+
  const options = {
   method: "GET",
   url: `https://api.themoviedb.org/3/movie/${props.movie}?language=en-US`,
@@ -25,23 +32,21 @@ function Screening(props) {
   },
  };
 
- const handleJoin = () => {
-  // should not change if they are already in it (!)
-  screenings = screenings.map((s) =>
-   s.movie_id === result.id.toString()
-    ? {
-       _id: s._id,
-       movie_id: s.movie_id,
-       user: s.user,
-       date: s.date,
-       viewers: [...s.viewers, currentUser.username],
-      }
-    : s
-  );
+ const handleJoin = async () => {
+  const i = screenings.find((s) => s.movie_id === result.id.toString());
+
+  i.viewers = [...i.viewers, currentUser.username];
+  console.log(i);
+
+  try {
+   const newSS = await client.updateScreening(i);
+   setScreenings([newSS, ...screenings]);
+  } catch (err) {
+   console.log(err);
+  }
+
   setViews(views + 1);
   setJoined(true);
-  console.log(screenings);
-  console.log(result.id);
  };
 
  const getInfo = async () => {
@@ -59,7 +64,8 @@ function Screening(props) {
 
  useEffect(() => {
   getInfo();
- }, [screenings]);
+  fetchScreenings();
+ }, []);
  return (
   <li class="round  my-1">
    {result && (
