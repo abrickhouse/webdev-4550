@@ -9,12 +9,19 @@ import { useSelector } from "react-redux";
 import reviews from "../Data/reviews.json";
 import screenings from "../Data/screenings.json";
 import response from "../Data/response.json";
+import UserReducer from "../login/UserReducer";
 
 // Profile page for a user. Only displays sensitive information if this screen is the logged in user's profile
 function Profile() {
  const { uId } = useParams();
  const users = useSelector((state) => state.profile.users);
  const user = users.find((user) => user.id === parseInt(uId));
+
+const { currentUser } = useSelector((state) => state.UserReducer);
+
+
+
+
  const LoggedInUserId = "1";
  const LoggedInUser = users.find((u) => u.id === LoggedInUserId);
 

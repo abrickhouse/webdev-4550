@@ -14,7 +14,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import SearchRes from "./search/SearchRes";
 import CurrentUser from "./login/CurrentUser"
-import Information from "./admin/Information";
+import Information from "./admin/information";
 import ProtectedAdminRoute from "./admin/ProtectedAdminRoute";
 
 function App() {
