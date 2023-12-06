@@ -1,7 +1,7 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import response from "../Data/response.json";
+import * as client from "./client";
 import "../App.css";
 
 function Review(props) {
@@ -11,24 +11,39 @@ function Review(props) {
  const users = useSelector((state) => state.profile.users);
  const user = users.filter((u) => props.user === u.name)[0];
 
+ const [response, setResponse] = useState([]);
+
+ const fetchResponses = async () => {
+  const reps = await client.findAllResponses();
+  console.log(reps);
+  setResponse(reps);
+ };
+
  const stars = [];
  for (let i = 0; i < props.rating; i++) {
   stars.push(" ");
  }
 
- const handleSave = () => {
+ const handleSave = async () => {
   setRep(false);
-  response = [
-   ...response,
-   {
-    _id: response.length + 1,
-    rev_id: props.id,
-    movie_id: props.movie,
-    user: currentUser.username,
-    comment: reply,
-   },
-  ];
+  const res = {
+   _id: new Date().getTime().toString(),
+   rev_id: props.id,
+   movie_id: props.movie,
+   user: currentUser.username,
+   comment: reply,
+  };
+  try {
+   const newRep = await client.createResponse(res);
+   setResponse([newRep, ...response]);
+  } catch (err) {
+   console.log(err);
+  }
  };
+
+ useEffect(() => {
+  fetchResponses();
+ }, []);
 
  return (
   <li class="round  my-1">

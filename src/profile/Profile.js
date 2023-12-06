@@ -122,13 +122,13 @@ function Profile() {
           onClick={() => setShowReviews(!showReviews)}
          >
           {showReviews ? "Hide Reviews" : "Display Reviews"} (
-          {reviews.filter((r) => r.user === user.name).length})
+          {reviews.filter((r) => r.user === user.username).length})
          </button>{" "}
         </div>
         {showReviews && (
          <ul className="list-group">
           {reviews
-           .filter((r) => r.user === user.name)
+           .filter((r) => r.user === user.username)
            .map((review, index) => (
             <Link
              to={`/details/${review.movie_id}`}

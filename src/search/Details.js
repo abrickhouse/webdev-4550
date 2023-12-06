@@ -21,7 +21,6 @@ function Details() {
 
  const fetchReviews = async () => {
   const revs = await client.findAllReviews();
-  console.log(revs);
   setReviews(revs);
  };
 
