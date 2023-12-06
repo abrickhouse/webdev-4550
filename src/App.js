@@ -30,11 +30,7 @@ function App() {
           <Route path="/result/:que" element={<SearchRes />} />
           <Route path="/profile/:uId" element={<Profile />} />
           <Route path="/profile/profileEditor/:uId" element={<ProfileEditor />} />
-          <Route path="/details/:id" element={<Details />} />
-          <Route path="/admin/*" element={
-            <ProtectedAdminRoute>
-            <Information />
-            </ProtectedAdminRoute>} />
+          <Route path="/details/:id" element={<Details />} />           
         </Routes>
         </div>
       </HashRouter>
