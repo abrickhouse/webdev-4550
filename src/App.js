@@ -33,10 +33,6 @@ function App() {
           <Route path="/profile/:uId" element={<Profile />} />
           <Route path="/profile/profileEditor/:uId" element={<ProfileEditor />} />
           <Route path="/details/:id" element={<Details />} />
-          <Route path="/admin/*" element={
-            <ProtectedAdminRoute>
-            <Information />
-            </ProtectedAdminRoute>} />
         </Routes>
         </div>
       </HashRouter>

@@ -15,33 +15,6 @@ function Home() {
  const [popularPeople, setPopularPeople] = useState([]);
 
  useEffect(() => {
-  const options = {
-   method: "GET",
-   headers: {
-    accept: "application/json",
-    Authorization:
-     "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MjA3MTcxNWViMDc5ZGNiOGUyNjVkMTk4MTg4NjNhYyIsInN1YiI6IjY1NWYyYTgzN2RmZGE2MDEzOGY5MGUzOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.HKY7Hf1XSS6VdDa1wgIiCKb_MOq2LFA71sCv6aZ9Mm4",
-   },
-  };
-
-  fetch(
-   "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1",
-   options
-  )
-   .then((response) => response.json())
-   .then((data) => {
-    setUpcomingMovies(data.results);
-   })
-   .catch((err) => console.error(err));
-  fetch(
-   "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
-   options
-  )
-   .then((response) => response.json())
-   .then((data) => {
-    setPopularMovies(data.results);
-   })
-   .catch((err) => console.error(err));
  }, []);
  console.log(upcomingMovies);
  return (

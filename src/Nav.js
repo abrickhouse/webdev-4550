@@ -9,11 +9,14 @@ function Nav() {
     <Link className="float-start nav-linkx" to="/">
      Home
     </Link>
+<<<<<<< HEAD
     {/* <ProtectedAdminRoute> */}
     <Link className="float-end nav-linkx" to="/admin">
       Admin
     </Link>
     {/* </ProtectedAdminRoute> */}
+=======
+>>>>>>> 4b156017a1432775945b84230b1c93df7214c825
     <Link className="float-end nav-linkx" to="/login">
       Login
     </Link>
