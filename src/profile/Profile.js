@@ -140,6 +140,7 @@ function Profile() {
               user={review.user}
               rating={review.rating}
               comment={review.comment}
+              det={false}
              />
             </Link>
            ))}

@@ -49,7 +49,6 @@ function Screening(props) {
  };
 
  const getInfo = async () => {
-  console.log("get info!!");
   axios
    .request(options)
    .then(function (response) {

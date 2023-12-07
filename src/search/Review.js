@@ -15,7 +15,6 @@ function Review(props) {
 
  const fetchResponses = async () => {
   const reps = await client.findAllResponses();
-  console.log(reps);
   setResponse(reps);
  };
 
@@ -80,11 +79,17 @@ function Review(props) {
       </div>
      ))}
    </div>
-   {currentUser && currentUser.userType === "Director" && !Repping && (
-    <button class="btnx py-0 px-2 mx-4 float-end" onClick={(e) => setRep(true)}>
-     Reply
-    </button>
-   )}
+   {currentUser &&
+    currentUser.userType === "Director" &&
+    props.det &&
+    !Repping && (
+     <button
+      class="btnx py-0 px-2 mx-4 float-end"
+      onClick={(e) => setRep(true)}
+     >
+      Reply
+     </button>
+    )}
    {Repping && (
     <div class="mx-4 my-2">
      <hr />

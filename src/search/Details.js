@@ -140,6 +140,7 @@ function Details() {
           user={rev.user}
           rating={rev.rating}
           comment={rev.comment}
+          det={true}
          />
         ))}
       </div>
