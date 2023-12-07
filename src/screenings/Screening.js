@@ -12,11 +12,17 @@ function Screening(props) {
  const [joined, setJoined] = useState(false);
  const { currentUser } = useSelector((state) => state.UserReducer);
 
- const users = useSelector((state) => state.profile.users);
- const user = users.filter((u) => props.user === u.name)[0];
+ const [users, setUsers] = useState([]);
+ const fetchUsers = async () => {
+  const u = await client.findAllUsers();
+  setUsers(u);
+  setUser(u.filter((u) => props.user === u.username)[0]);
+  console.log(user);
+ };
+
+ const [user, setUser] = useState();
 
  const [screenings, setScreenings] = useState([]);
-
  const fetchScreenings = async () => {
   const scs = await client.findAllScreenings();
   setScreenings(scs);
@@ -50,11 +56,9 @@ function Screening(props) {
  };
 
  const getInfo = async () => {
-  console.log("get info!!");
   axios
    .request(options)
    .then(function (response) {
-    console.log(response.data);
     setResult(response.data);
    })
    .catch(function (error) {
@@ -65,6 +69,7 @@ function Screening(props) {
  useEffect(() => {
   getInfo();
   fetchScreenings();
+  fetchUsers();
  }, []);
  return (
   <li class="round  my-1">

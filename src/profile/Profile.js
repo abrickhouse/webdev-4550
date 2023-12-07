@@ -1,27 +1,47 @@
 import { useParams } from "react-router-dom";
 import Nav from "../Nav";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import Review from "../search/Review";
 import MiniScreening from "../screenings/MiniScreening";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import reviews from "../Data/reviews.json";
-import screenings from "../Data/screenings.json";
-import response from "../Data/response.json";
-import UserReducer from "../login/UserReducer";
+import * as client from "../search/client.js";
 
 // Profile page for a user. Only displays sensitive information if this screen is the logged in user's profile
 function Profile() {
  const { uId } = useParams();
- const users = useSelector((state) => state.profile.users);
- const user = users.find((user) => user.id === parseInt(uId));
+ // const users = useSelector((state) => state.profile.users);
+ const [users, setUsers] = useState([]);
+ const [user, setUser] = useState();
+ const fetchUsers = async () => {
+  const u = await client.findAllUsers();
+
+  setUsers(u);
+  console.log(users);
+  setUser(u.find((user) => user.id.toString() === uId));
+  console.log(user);
+ };
+
+ const [screenings, setScreenings] = useState([]);
+ const fetchScreenings = async () => {
+  const scs = await client.findAllScreenings();
+  setScreenings(scs);
+ };
+
+ const [reviews, setReviews] = useState([]);
+ const fetchReviews = async () => {
+  const revs = await client.findAllReviews();
+  setReviews(revs);
+ };
+
+ const [response, setResponse] = useState([]);
+ const fetchResponses = async () => {
+  const reps = await client.findAllResponses();
+  setResponse(reps);
+ };
 
  const navigate = useNavigate();
-
- if (!user) {
-  navigate("/kanbas/signin");
- }
 
  const { currentUser } = useSelector((state) => state.UserReducer);
  // boolean for if the logged in user is viewing their own profile
@@ -37,6 +57,15 @@ function Profile() {
  const followers = users.filter((u) => user.followers.includes(u.id));
  const following = users.filter((u) => user.following.includes(u.id));
 
+ useEffect(() => {
+  fetchScreenings();
+  fetchReviews();
+  fetchResponses();
+  fetchUsers();
+  if (!user) {
+   navigate("/login");
+  }
+ }, []);
  return (
   <div className="px-2 bg-main bg-dark">
    {" "}
@@ -63,11 +92,11 @@ function Profile() {
        Profile Information
       </h2>
       <img
-       src={user.profilePicture}
+       src={user?.profilePicture}
        alt="Profile"
        className="img-fluid rounded-circle mx-auto d-block"
       />
-      <h1 className="text-center">{user.name}</h1>
+      <h1 className="text-center">{user?.name}</h1>
       <div className="d-flex justify-content-center mb-2 mt-4">
        {/* EDIT PROFILE BUTTON only if this is logged in user */}
        {isOwnProfile && (
@@ -81,7 +110,7 @@ function Profile() {
        {/* FOLLOW BUTTON only if this is not the logged in user*/}
        {!isOwnProfile && (
         <button className="wd-link border-dark border-2 rounded wd-li bg-warning p-2 text-center form-control">
-         Follow {user.name}
+         Follow {user?.username}
         </button>
        )}
       </div>
@@ -90,7 +119,7 @@ function Profile() {
        className="bg-white p-2 rounded"
        style={{ maxHeight: "calc(1.5em * 5)", overflowY: "auto" }}
       >
-       {user.bio}
+       {user?.bio}
       </p>
      </div>
 
@@ -110,11 +139,11 @@ function Profile() {
         fontSize: "1.5em",
        }}
       >
-       {user.userType === "Typical User"
-        ? "Reviews and Likes"
+       {user?.userType === "Typical User"
+        ? "Reviews and Bookmarks"
         : "Movies and Responses"}
       </h2>
-      {user.userType === "Typical User" && (
+      {user?.userType === "Typical User" && (
        <div>
         <div className="wd-section mb-3">
          <button
@@ -147,7 +176,7 @@ function Profile() {
         )}
        </div>
       )}
-      {user.userType === "Director" && (
+      {user?.userType === "Director" && (
        <div>
         <div className="wd-section mb-3">
          <button
@@ -160,7 +189,7 @@ function Profile() {
         {showAddedMovies && (
          <ul className="list-group">
           {screenings
-           .filter((s) => s.user === user.name)
+           .filter((s) => s.user === user.username)
            .map((addedMovie, index) => (
             <li
              className="list-group-item border-dark border-2 rounded wd-li"
@@ -187,7 +216,7 @@ function Profile() {
         {showResponses && (
          <ul className="list-group">
           {response
-           .filter((r) => r.user === user.name)
+           .filter((r) => r.user === user.username)
            .map((response, index) => (
             <Link
              to={`/details/${response.movie_id}`}

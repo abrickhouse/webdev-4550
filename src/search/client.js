@@ -3,6 +3,7 @@ export const BASE_API = process.env.REACT_APP_BASE_API_URL;
 export const REV_API = `${BASE_API}/api/reviews`;
 export const REP_API = `${BASE_API}/api/responses`;
 export const SCR_API = `${BASE_API}/api/screenings`;
+export const U_API = `${BASE_API}/api/users`;
 
 const request = axios.create({
  withCredentials: true,
@@ -34,5 +35,9 @@ export const createScreening = async (sc) => {
 };
 export const updateScreening = async (sc) => {
  const response = await request.put(`${SCR_API}/${sc._id}`, sc);
+ return response.data;
+};
+export const findAllUsers = async () => {
+ const response = await request.get(`${U_API}`);
  return response.data;
 };
