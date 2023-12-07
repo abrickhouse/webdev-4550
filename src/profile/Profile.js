@@ -10,6 +10,7 @@ import reviews from "../Data/reviews.json";
 import screenings from "../Data/screenings.json";
 import response from "../Data/response.json";
 import UserReducer from "../login/UserReducer";
+import MiniMovie from "../screenings/MiniMovie";
 
 // Profile page for a user. Only displays sensitive information if this screen is the logged in user's profile
 function Profile() {
@@ -29,6 +30,7 @@ function Profile() {
 
  const [showFollowers, setShowFollowers] = useState(true);
  const [showFollowing, setShowFollowing] = useState(true);
+ const [showBookmarks, setShowBookmarks] = useState(true);
  const [showReviews, setShowReviews] = useState(true);
  const [showAddedMovies, setShowAddedMovies] = useState(true);
  const [showResponses, setShowResponses] = useState(true);
@@ -144,6 +146,28 @@ function Profile() {
              />
             </Link>
            ))}
+         </ul>
+        )}
+        <div className="wd-section mb-3">
+         <button
+          className="btn btn-light mt-4 form-control"
+          onClick={() => setShowBookmarks(!showBookmarks)}
+         >
+          {showBookmarks ? "Hide Bookmarks" : "Display Bookmarks"}
+         </button>
+        </div>
+        {showBookmarks && (
+         <ul className="list-group">
+          {currentUser.bookmarks.map((b, index) => (
+           <Link to={`/details/${b}`} state={{ from: `/profile/${user.id}` }}>
+            <li
+             className="list-group-item border-dark border-2 rounded wd-li"
+             key={index}
+            >
+             <MiniMovie user={""} date={""} movie={b} />
+            </li>
+           </Link>
+          ))}
          </ul>
         )}
        </div>

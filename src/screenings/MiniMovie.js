@@ -6,9 +6,8 @@ import * as client from "../search/client.js";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-function MiniScreening(props) {
+function MiniMovie(props) {
  const [result, setResult] = useState();
- const [views, setViews] = useState(props.viewers);
 
  const users = useSelector((state) => state.profile.users);
  const user = users.filter((u) => props.user === u.name)[0];
@@ -30,24 +29,6 @@ function MiniScreening(props) {
   },
  };
 
- const handleJoin = () => {
-  // should not change if they are already in it (!)
-  screenings = screenings.map((s) =>
-   s.movie_id === result.id.toString()
-    ? {
-       _id: s._id,
-       movie_id: s.movie_id,
-       user: s.user,
-       date: s.date,
-       viewers: [...s.viewers, "new"],
-      }
-    : s
-  );
-  setViews(views + 1);
-  console.log(screenings);
-  console.log(result.id);
- };
-
  const getInfo = async () => {
   axios
    .request(options)
@@ -65,7 +46,7 @@ function MiniScreening(props) {
   fetchScreenings();
  }, []);
  return (
-  <li class="round my-1">
+  <li class="round my-1 mx-1">
    {result && (
     <div class="my-2 peek">
      <div>
@@ -73,7 +54,7 @@ function MiniScreening(props) {
        {" "}
        <img
         className="mx-1 my-2"
-        style={{ height: "100px", width: "auto" }}
+        style={{ height: "150px", width: "auto" }}
         alt="poster"
         src={`https://image.tmdb.org/t/p/w300/${result.poster_path}`}
        />{" "}
@@ -82,8 +63,6 @@ function MiniScreening(props) {
         <h6 class="mx-2">
          {result.original_title ? result.original_title : result.original_name}
         </h6>
-        <div class="mx-2">Date: {props.date}</div>
-        <div class="mx-2">Viewers: {views.length}</div>
        </div>
       </div>
      </div>
@@ -92,4 +71,4 @@ function MiniScreening(props) {
   </li>
  );
 }
-export default MiniScreening;
+export default MiniMovie;

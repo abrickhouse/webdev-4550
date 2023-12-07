@@ -50,6 +50,13 @@ code {
  top: 20%;
  left: 15vw;
 }
+.book {
+ border-width: 0px;
+}
+
+.not-ac {
+ color: rgba(100, 100, 100, 0.2);
+}
 
 .btnx {
  display: block;
@@ -58,6 +65,17 @@ code {
  border-radius: 14px;
  height: 32px;
 }
+
+.btnx:disabled {
+ display: block;
+ background: #99c49e;
+ cursor: pointer;
+ border-radius: 14px;
+ height: 32px;
+ color: #393939;
+ border-color: #595858;
+}
+
 button:active {
  box-shadow: inset 0px 0px 80px 0px rgba(0, 0, 0, 0.2);
 }
@@ -154,13 +172,13 @@ a {
  text-decoration: none;
 }
 
-.home.list-group{
+.home.list-group {
  width: 100%;
  margin-bottom: 40px;
 }
 
-.home li{
-  margin-bottom: 0px;
+.home li {
+ margin-bottom: 0px;
 }
 
 .home .list-group-item {
@@ -175,56 +193,56 @@ a {
 }
 
 .activity .list-group {
-  width: 100%;
-  height: 100;
- }
+ width: 100%;
+ height: 100;
+}
 
- .activity .list-group-item.active {
-  background-color: #242424;
-  display: flex;
- }
+.activity .list-group-item.active {
+ background-color: #242424;
+ display: flex;
+}
 
- .activity .list-group-item {
-  background-color: #bff3c5;
-  width: 100%;
- }
+.activity .list-group-item {
+ background-color: #bff3c5;
+ width: 100%;
+}
 
- .viewButton{
-  color: #242424;
-  border: none;
-  background-color: #bff3c5;
-  width: 100%;
-  text-align: left;
- }
+.viewButton {
+ color: #242424;
+ border: none;
+ background-color: #bff3c5;
+ width: 100%;
+ text-align: left;
+}
 
-.homeDetails{
-  text-decoration: none;
-  color: black;
+.homeDetails {
+ text-decoration: none;
+ color: black;
 }
 .form-check.sign {
  color: #bff3c5;
 }
 
-.poster-size{
-  width: 75px;
-  height: 122.5px;
+.poster-size {
+ width: 75px;
+ height: 122.5px;
 }
 
-.poster-display-flex{
-  flex-grow: 0;
-  flex-shrink: 0;
-  width: 75px;
+.poster-display-flex {
+ flex-grow: 0;
+ flex-shrink: 0;
+ width: 75px;
 }
 
-.upcomingMoviesContainer{
-  display: flex;
+.upcomingMoviesContainer {
+ display: flex;
 }
 
-.details-display-flex{
-  flex-grow: 1;
-  padding-left: 10px;
+.details-display-flex {
+ flex-grow: 1;
+ padding-left: 10px;
 }
 
-.star-icon{
-  color:#FFD700;
+.star-icon {
+ color: #ffd700;
 }

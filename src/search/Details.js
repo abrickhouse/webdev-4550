@@ -8,8 +8,10 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import * as client from "./client";
+import * as uClient from "../login/client";
 import Review from "./Review";
 import Modal from "react-modal";
+import { setCurrentUser } from "../login/UserReducer";
 
 function Details() {
  const { id } = useParams();
@@ -18,6 +20,7 @@ function Details() {
  const { from } = location.state;
  const [result, setResult] = useState();
  const [reviews, setReviews] = useState([]);
+ const [bookmarked, setBookmarked] = useState(false);
 
  const fetchReviews = async () => {
   const revs = await client.findAllReviews();
@@ -44,6 +47,7 @@ function Details() {
    .catch(function (error) {
     console.error(error);
    });
+  setBookmarked(currentUser?.bookmarks?.includes(parseInt(result?.id)));
  };
 
  const [open, setOpen] = React.useState(false);
@@ -67,6 +71,59 @@ function Details() {
   try {
    const newRev = await client.createReview(rev);
    setReviews([newRev, ...reviews]);
+  } catch (err) {
+   console.log(err);
+  }
+ };
+
+ const bookmark = async () => {
+  setBookmarked(true);
+  const newU = {
+   _id: currentUser._id,
+   name: currentUser.name,
+   id: currentUser.id,
+   username: currentUser.username,
+   password: currentUser.password,
+   followers: currentUser.followers,
+   following: currentUser.following,
+   bio: currentUser.bio,
+   profilePicture: currentUser.profilePicture,
+   userType: "Typical User",
+   email: currentUser.email,
+   phoneNumber: currentUser.phoneNumber,
+   address: currentUser.address,
+   bookmarks: [...currentUser.bookmarks, result.id],
+  };
+
+  try {
+   const addB = await uClient.updateUser(newU);
+   setCurrentUser(addB);
+  } catch (err) {
+   console.log(err);
+  }
+ };
+
+ const unbookmark = async () => {
+  setBookmarked(false);
+  const newU = {
+   _id: currentUser._id,
+   name: currentUser.name,
+   id: currentUser.id,
+   username: currentUser.username,
+   password: currentUser.password,
+   followers: currentUser.followers,
+   following: currentUser.following,
+   bio: currentUser.bio,
+   profilePicture: currentUser.profilePicture,
+   userType: "Typical User",
+   email: currentUser.email,
+   phoneNumber: currentUser.phoneNumber,
+   address: currentUser.address,
+   bookmarks: currentUser.bookmarks.filter((b) => b !== result.id),
+  };
+  try {
+   const removeB = await uClient.updateUser(newU);
+   setCurrentUser(removeB);
   } catch (err) {
    console.log(err);
   }
@@ -112,6 +169,19 @@ function Details() {
        <div class="mx-3">Release Date: {result.release_date}</div>
        <div class="mx-3">Revenue: {result.revenue}</div>
        <div class="mx-3">Runtime: {result.runtime} min</div>
+       {currentUser && (
+        <div>
+         {bookmarked ? (
+          <button class="my-2 mx-2 book" onClick={(e) => unbookmark()}>
+           <i className="fa fa-2x fa-solid fa-bookmark"></i>
+          </button>
+         ) : (
+          <button class="my-2 mx-2 book" onClick={(e) => bookmark()}>
+           <i className="fa fa-2x fa-bookmark not-ac"></i>
+          </button>
+         )}
+        </div>
+       )}
       </div>
      </div>
 

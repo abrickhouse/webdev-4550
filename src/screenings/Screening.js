@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import "../App.css";
 import axios from "axios";
 import * as client from "../search/client.js";
+import * as uClient from "../login/client.js";
 import { useSelector } from "react-redux";
 
 function Screening(props) {
@@ -12,8 +13,13 @@ function Screening(props) {
  const [joined, setJoined] = useState(false);
  const { currentUser } = useSelector((state) => state.UserReducer);
 
- const users = useSelector((state) => state.profile.users);
- const user = users.filter((u) => props.user === u.name)[0];
+ const [users, setUsers] = useState([]);
+ let user;
+ const fetchUsers = async () => {
+  const scs = await uClient.findAllUsers();
+  setUsers(scs);
+  user = users.find((u) => props.user === u.username);
+ };
 
  const [screenings, setScreenings] = useState([]);
 
@@ -65,6 +71,7 @@ function Screening(props) {
  useEffect(() => {
   getInfo();
   fetchScreenings();
+  fetchUsers();
  }, []);
  return (
   <li class="round  my-1">
@@ -88,10 +95,10 @@ function Screening(props) {
             ? result.original_title
             : result.original_name}
           </h1>
-          {user && (
+          {users && (
            <h6 class="mx-2 col">
             Created by User:{" "}
-            <Link to={`/profile/${user.id}`} className="col">
+            <Link to={`/profile/${user?.id}`} className="col">
              {props.user}
             </Link>
            </h6>
@@ -102,7 +109,7 @@ function Screening(props) {
         </div>
        </div>
        <div className="flex-shrink-1 align-items-end flex-column">
-        {currentUser && currentUser.userType === "Typical User" && (
+        {currentUser && (
          <div>
           {!props.viewers.includes(currentUser.username) && !joined ? (
            <button class="btnx py-0 px-2 float-end" onClick={handleJoin}>
@@ -110,7 +117,7 @@ function Screening(props) {
            </button>
           ) : (
            <button disabled class="btnx py-0 px-2 float-end">
-            joined
+            Joined
            </button>
           )}
          </div>
