@@ -4,14 +4,16 @@
   "movie_id": "346698",
   "user": "abrikk",
   "rating": 4,
-  "comment": "I loved wearing pink to the Barbie movie! Hi Barbie!"
+  "comment": "I loved wearing pink to the Barbie movie! Hi Barbie!",
+  "user_id": 7
  },
  {
   "_id": "2",
   "movie_id": "414906",
   "user": "abrikk",
   "rating": 5,
-  "comment": "Favorite movie of the year!"
+  "comment": "Favorite movie of the year!",
+  "user_id": 7
  },
  {
   "_id": "3",

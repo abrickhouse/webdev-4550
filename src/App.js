@@ -2,7 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { HashRouter } from "react-router-dom";
 import { Routes, Route, Navigate } from "react-router";
-import Home from "./Home";
+import Home from "./home/Home";
 import Screenings from "./screenings/Screenings";
 import Search from "./search/Search";
 import Profile from "./profile/Profile";
@@ -14,29 +14,30 @@ import { Provider } from "react-redux";
 import store from "./store";
 import SearchRes from "./search/SearchRes";
 import CurrentUser from "./login/CurrentUser"
+import UpcomingMovies from "./home/UpcomingMovies";
 
 function App() {
  return (
-   <Provider store={store}>
-     <CurrentUser>
-       <HashRouter>
-         <div class="body">
-           <Routes>
-             <Route path="/login/*" element={<Signin />} />
-             <Route path="/register/*" element={<Signup />} />
-             <Route path="/" element={<Home />} />
-             <Route path="/screenings/*" element={<Screenings />} />
-             <Route path="/search/" element={<Search />} />
-             <Route path="/result/:que" element={<SearchRes />} />
-             <Route path="/profile/:uId" element={<Profile />} />
-             <Route path="/profile/noUser" element={<Signin />} />
-             <Route path="/profile/profileEditor/:uId" element={<ProfileEditor />} />
-             <Route path="/details/:id" element={<Details />} />
-           </Routes>
-         </div>
-       </HashRouter>
-     </CurrentUser>
-   </Provider>
+  <Provider store={store}>
+    <CurrentUser>
+      <HashRouter>
+        <div class="body">
+        <Routes>
+          <Route path="/login/*" element={<Signin />} />
+          <Route path="/register/*" element={<Signup />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/upcoming" element={<UpcomingMovies />} />
+          <Route path="/screenings/*" element={<Screenings />} />
+          <Route path="/search/" element={<Search />} />
+          <Route path="/result/:que" element={<SearchRes />} />
+          <Route path="/profile/:uId" element={<Profile />} />
+          <Route path="/profile/profileEditor/:uId" element={<ProfileEditor />} />
+          <Route path="/details/:id" element={<Details />} />           
+        </Routes>
+        </div>
+      </HashRouter>
+   </CurrentUser>
+  </Provider>
  );
 }
 
