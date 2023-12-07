@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
-import screenings from "../Data/screenings.json";
+import * as client from "../search/client.js";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
@@ -12,6 +12,13 @@ function Screening(props) {
 
  const users = useSelector((state) => state.profile.users);
  const user = users.filter((u) => props.user === u.name)[0];
+
+ const [screenings, setScreenings] = useState([]);
+
+ const fetchScreenings = async () => {
+  const scs = await client.findAllScreenings();
+  setScreenings(scs);
+ };
 
  const options = {
   method: "GET",
@@ -56,7 +63,8 @@ function Screening(props) {
 
  useEffect(() => {
   getInfo();
- }, [screenings]);
+  fetchScreenings();
+ }, []);
  return (
   <li class="round my-1">
    {result && (

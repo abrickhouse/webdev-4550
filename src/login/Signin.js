@@ -36,8 +36,20 @@ function Signin() {
     <div className="background-sign">
       <Nav />
       {showError && ( // Displays error message if showError is true
-        <div className="alert alert-danger mt-3" role="alert">
-          "Login unsuccessful. Please try again."
+        <div
+          className="alert alert-danger d-flex align-items-center justify-content-center"
+          role="alert"
+          style={{
+            position: "absolute",
+            width: "90%",
+            height: "100px",
+            fontSize: "2vw",
+            marginTop: "70px",
+            marginLeft: "5%",
+            marginRight: "5%",
+          }}
+        >
+          Login unsuccessful. Please try again.
         </div>
       )}
       <div className="container sign1">

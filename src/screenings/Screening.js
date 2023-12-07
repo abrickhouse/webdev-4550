@@ -2,16 +2,25 @@ import { React, useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
-import screenings from "../Data/screenings.json";
 import axios from "axios";
+import * as client from "../search/client.js";
 import { useSelector } from "react-redux";
 
 function Screening(props) {
  const [result, setResult] = useState();
- const [views, setViews] = useState(props.viewers);
+ const [views, setViews] = useState(props.viewers.length);
+ const [joined, setJoined] = useState(false);
+ const { currentUser } = useSelector((state) => state.UserReducer);
 
  const users = useSelector((state) => state.profile.users);
  const user = users.filter((u) => props.user === u.name)[0];
+
+ const [screenings, setScreenings] = useState([]);
+
+ const fetchScreenings = async () => {
+  const scs = await client.findAllScreenings();
+  setScreenings(scs);
+ };
 
  const options = {
   method: "GET",
@@ -23,22 +32,21 @@ function Screening(props) {
   },
  };
 
- const handleJoin = () => {
-  // should not change if they are already in it (!)
-  screenings = screenings.map((s) =>
-   s.movie_id === result.id.toString()
-    ? {
-       _id: s._id,
-       movie_id: s.movie_id,
-       user: s.user,
-       date: s.date,
-       viewers: [...s.viewers, "new"],
-      }
-    : s
-  );
+ const handleJoin = async () => {
+  const i = screenings.find((s) => s.movie_id === result.id.toString());
+
+  i.viewers = [...i.viewers, currentUser.username];
+  console.log(i);
+
+  try {
+   const newSS = await client.updateScreening(i);
+   setScreenings([newSS, ...screenings]);
+  } catch (err) {
+   console.log(err);
+  }
+
   setViews(views + 1);
-  console.log(screenings);
-  console.log(result.id);
+  setJoined(true);
  };
 
  const getInfo = async () => {
@@ -56,7 +64,8 @@ function Screening(props) {
 
  useEffect(() => {
   getInfo();
- }, [screenings]);
+  fetchScreenings();
+ }, []);
  return (
   <li class="round  my-1">
    {result && (
@@ -93,9 +102,19 @@ function Screening(props) {
         </div>
        </div>
        <div className="flex-shrink-1 align-items-end flex-column">
-        <button class="btnx py-0 px-2 float-end" onClick={handleJoin}>
-         Join
-        </button>
+        {currentUser && currentUser.userType === "Typical User" && (
+         <div>
+          {!props.viewers.includes(currentUser.username) && !joined ? (
+           <button class="btnx py-0 px-2 float-end" onClick={handleJoin}>
+            Join
+           </button>
+          ) : (
+           <button disabled class="btnx py-0 px-2 float-end">
+            joined
+           </button>
+          )}
+         </div>
+        )}
         <div class="my-3">Viewers: {views}</div>
        </div>
       </div>

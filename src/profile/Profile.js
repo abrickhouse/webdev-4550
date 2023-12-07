@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import "./Profile.css";
 import Review from "../search/Review";
 import MiniScreening from "../screenings/MiniScreening";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import reviews from "../Data/reviews.json";
 import screenings from "../Data/screenings.json";
@@ -17,18 +17,15 @@ function Profile() {
  const users = useSelector((state) => state.profile.users);
  const user = users.find((user) => user.id === parseInt(uId));
 
-const { currentUser } = useSelector((state) => state.UserReducer);
+ const navigate = useNavigate();
 
+ if (!user) {
+  navigate("/kanbas/signin");
+ }
 
-
-
- const LoggedInUserId = "1";
- const LoggedInUser = users.find((u) => u.id === LoggedInUserId);
-
+ const { currentUser } = useSelector((state) => state.UserReducer);
  // boolean for if the logged in user is viewing their own profile
- const isOwnProfile = uId === LoggedInUserId;
-
- // const isOwnProfile = (uId === LoggedInUser.id);
+ const isOwnProfile = uId === currentUser;
 
  const [showFollowers, setShowFollowers] = useState(true);
  const [showFollowing, setShowFollowing] = useState(true);
@@ -125,13 +122,13 @@ const { currentUser } = useSelector((state) => state.UserReducer);
           onClick={() => setShowReviews(!showReviews)}
          >
           {showReviews ? "Hide Reviews" : "Display Reviews"} (
-          {reviews.filter((r) => r.user === user.name).length})
+          {reviews.filter((r) => r.user === user.username).length})
          </button>{" "}
         </div>
         {showReviews && (
          <ul className="list-group">
           {reviews
-           .filter((r) => r.user === user.name)
+           .filter((r) => r.user === user.username)
            .map((review, index) => (
             <Link
              to={`/details/${review.movie_id}`}
@@ -172,7 +169,7 @@ const { currentUser } = useSelector((state) => state.UserReducer);
              <MiniScreening
               user={user.name}
               date={addedMovie.date}
-              viewers={addedMovie.viewers.length}
+              viewers={addedMovie.viewers}
               movie={addedMovie.movie_id}
              />
             </li>
@@ -275,8 +272,7 @@ const { currentUser } = useSelector((state) => state.UserReducer);
       )}
      </div>
 
-     {/* Private information only visible to the signed-in user 
-          Use some kind of if (loggedInUser = thisProfile){...} */}
+     {/* Private information only visible to the signed-in user */}
      {isOwnProfile && (
       <div className="private-info rounded bg-mint">
        <h2>Your Private Account Information</h2>
