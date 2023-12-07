@@ -14,6 +14,7 @@ function Signup() {
   });
   const [error, setError] = useState("");
   const [showError, setShowError] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleRoleChange = (e) => {
     setCredentials({ ...credentials, role: e.target.value });
@@ -55,6 +56,15 @@ function Signup() {
       }, 5000);
       return;
     }
+    // if passwords do not match
+    if (credentials.password !== confirmPassword) {
+      setError("Passwords do not match!");
+      setShowError(true);
+      setTimeout(() => {
+        setShowError(false);
+      }, 5000);
+      return;
+    } 
 
     try {
       await client.signup(credentials);
@@ -120,8 +130,14 @@ function Signup() {
               />
             </div>
             <div className="form-group sign">
-              <input type="password" class="form-control" placeholder="Confirm Password" />
-            </div>
+                <input
+                  type="password"
+                  className="form-control"
+                  placeholder="Confirm Password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)} // Update the confirmPassword state
+                />
+              </div>
             <div className="mb-3">
               <div className="form-check sign">
                 <input
