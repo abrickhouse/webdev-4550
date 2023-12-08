@@ -21,7 +21,7 @@ function Profile() {
  const navigate = useNavigate();
 
  if (!user) {
-  navigate("/kanbas/signin");
+  navigate("/login");
  }
 
  const { currentUser } = useSelector((state) => state.UserReducer);
