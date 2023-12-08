@@ -57,7 +57,6 @@ function Home() {
    .catch((err) => console.error(err));
    
   fetchReviews();
-  console.log(fetchReviews());
  }, []);  
  return (
   <div class="px-2 bg-main">

@@ -1,15 +1,27 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UserReducer from "./login/UserReducer";
 import { useSelector } from "react-redux";
-
+import * as client from "./login/client";
+import ProtectedUserRoute from "./login/ProtectedUserRoute";
+import ProtectedNonUserRoute from "./login/ProtectedNonUserRoute";
+import { useEffect } from "react";
+import { setCurrentUser } from "./login/UserReducer";
+import { useDispatch } from "react-redux";
 function Nav() {
   // get the current user
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.UserReducer);
   let currentUserId = "noUser";
 
   if (currentUser) {
     currentUserId = currentUser.id;
   }
+  const signout = async () => {
+    await client.signout();
+    dispatch(setCurrentUser(null));
+    navigate("/login");
+  };
 
   return (
     <nav className="nav nav-tabs mb-2 grid row">
@@ -18,6 +30,12 @@ function Nav() {
         <Link className="float-start nav-linkx" to="/">
           Home
         </Link>
+        {
+            currentUser && 
+            <Link className="float-end nav-linkx" onClick={signout}>
+                Sign Out
+            </Link>
+        }
         <Link className="float-end nav-linkx" to="/login">
           Login
         </Link>

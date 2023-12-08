@@ -5,7 +5,9 @@ export const USERS_API = `${BASE_API}/api/users`;
 const request = axios.create({
   withCredentials: true,
 });
-
+export const getTotalUsers = async () => {
+  const response = await request.get(`${USERS_API}/totalusers`);
+  return response.data; };
 export const signin = async (credentials) => {
   const response = await request.post(`${USERS_API}/signin`, credentials);
   return response.data; };
