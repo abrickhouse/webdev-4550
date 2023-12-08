@@ -1,7 +1,7 @@
 import * as client from "./client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUser } from "./UserReducer";
 import Nav from "../Nav";
 
@@ -10,6 +10,7 @@ function Signin() {
   const [showError, setShowError] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.UserReducer);
   const signin = async () => {
     if (!credentials.username) {
       setShowError(true);
@@ -38,7 +39,6 @@ function Signin() {
       return;
     }
   };
-
   return (
     <div className="background-sign">
       <Nav />

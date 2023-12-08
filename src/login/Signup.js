@@ -1,16 +1,18 @@
 import Nav from "../Nav";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as client from "./client";
 import { useNavigate } from "react-router-dom";
 
 function Signup() {
   const navigate = useNavigate();
+  const [totalUsers, setTotalUser] = useState(0); 
   const [credentials, setCredentials] = useState({
     name: "",
     username: "",
     password: "",
     email: "",
     role: "REVIEWER",
+    id: "",
   });
   const [error, setError] = useState("");
   const [showError, setShowError] = useState(false);
@@ -78,7 +80,15 @@ function Signup() {
       }, 5000);
     }
   };
+  const fetchTotalUsers = async () => {
+    const total = await client.getTotalUsers();
+    setTotalUser(total);
+    setCredentials({ ...credentials, id: (total + 1).toString() });
+   };
 
+  useEffect(() => {
+    fetchTotalUsers();
+  }, [])
   return (
     <div className="background-sign">
       <Nav />
