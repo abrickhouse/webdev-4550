@@ -20,12 +20,10 @@ function SearchRes() {
  };
 
  const handleSearch = async () => {
-  console.log("get search!!");
   options.params.query = term;
   axios
    .request(options)
    .then(function (response) {
-    console.log(response.data.results);
     setResults(response.data.results);
    })
    .catch(function (error) {

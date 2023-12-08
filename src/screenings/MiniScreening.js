@@ -30,29 +30,10 @@ function MiniScreening(props) {
   },
  };
 
- const handleJoin = () => {
-  // should not change if they are already in it (!)
-  screenings = screenings.map((s) =>
-   s.movie_id === result.id.toString()
-    ? {
-       _id: s._id,
-       movie_id: s.movie_id,
-       user: s.user,
-       date: s.date,
-       viewers: [...s.viewers, "new"],
-      }
-    : s
-  );
-  setViews(views + 1);
-  console.log(screenings);
-  console.log(result.id);
- };
-
  const getInfo = async () => {
   axios
    .request(options)
    .then(function (response) {
-    console.log(response.data);
     setResult(response.data);
    })
    .catch(function (error) {

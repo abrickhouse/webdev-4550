@@ -13,13 +13,8 @@ function Screening(props) {
  const [joined, setJoined] = useState(false);
  const { currentUser } = useSelector((state) => state.UserReducer);
 
- const [users, setUsers] = useState([]);
- let user;
- const fetchUsers = async () => {
-  const scs = await uClient.findAllUsers();
-  setUsers(scs);
-  user = users.find((u) => props.user === u.username);
- };
+ const users = useSelector((state) => state.profile.users);
+ const user = users.find((u) => props.user === u.name);
 
  const [screenings, setScreenings] = useState([]);
 
@@ -42,7 +37,6 @@ function Screening(props) {
   const i = screenings.find((s) => s.movie_id === result.id.toString());
 
   i.viewers = [...i.viewers, currentUser.username];
-  console.log(i);
 
   try {
    const newSS = await client.updateScreening(i);
@@ -56,11 +50,9 @@ function Screening(props) {
  };
 
  const getInfo = async () => {
-  console.log("get info!!");
   axios
    .request(options)
    .then(function (response) {
-    console.log(response.data);
     setResult(response.data);
    })
    .catch(function (error) {
@@ -71,7 +63,6 @@ function Screening(props) {
  useEffect(() => {
   getInfo();
   fetchScreenings();
-  fetchUsers();
  }, []);
  return (
   <li class="round  my-1">
@@ -95,10 +86,10 @@ function Screening(props) {
             ? result.original_title
             : result.original_name}
           </h1>
-          {users && (
+          {user && (
            <h6 class="mx-2 col">
             Created by User:{" "}
-            <Link to={`/profile/${user?.id}`} className="col">
+            <Link to={`/profile/${user.id}`} className="col">
              {props.user}
             </Link>
            </h6>

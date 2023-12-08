@@ -18,7 +18,6 @@ function Details() {
  const location = useLocation();
  const { currentUser } = useSelector((state) => state.UserReducer);
  const { from } = location.state;
- console.log(location.state);
  const [result, setResult] = useState();
  const [reviews, setReviews] = useState([]);
  const [bookmarked, setBookmarked] = useState(false);
@@ -42,7 +41,6 @@ function Details() {
   axios
    .request(options)
    .then(function (response) {
-    console.log(response.data);
     setResult(response.data);
    })
    .catch(function (error) {
@@ -65,6 +63,7 @@ function Details() {
   const rev = {
    _id: new Date().getTime().toString(),
    movie_id: result.id,
+   user_id: currentUser.id,
    user: currentUser.username,
    comment: com,
    rating: rat,
