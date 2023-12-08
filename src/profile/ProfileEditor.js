@@ -1,25 +1,35 @@
 import React, { useState } from "react";
 import "./Profile.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import * as client from "../login/client";
+import { setCurrentUser } from "../login/UserReducer";
+
 
 function ProfileEditor() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { uId } = useParams();
-  const users = useSelector((state) => state.profile.users);
-  const user = users.find((user) => user.id === parseInt(uId));
+  const { currentUser } = useSelector((state) => state.UserReducer);
+
+  // check to see if current logged in user matches the user id in the url
+  // this makes sure that only the user can edit their own profile
+  const isOwnProfile = currentUser.id === uId;
+  if (!isOwnProfile) {
+    navigate("/");
+  }
 
   // Local state to manage input values
   const [editedUser, setEditedUser] = useState({
-    ...user,
+    ...currentUser,
   });
 
   const save = async () => {
     try {
       await client.updateUser(editedUser);
+      dispatch(setCurrentUser(editedUser));
       navigate(`/Profile/${uId}`);
     } catch (error) {
       // console.error("Update failed: ", error);
@@ -27,12 +37,6 @@ function ProfileEditor() {
   };
 
   return (
-    /*
-
-      WRITE CONDITION TO MAKE SURE UID MATCHES LOGGED IN USER
-      - THIS MAKES SURE YOU CANT CHANGE URL AND EDIT OTHER USERS PROFILES
-
-    */
     <div
       className="container bg-main bg-dark m-0 px-4"
       style={{
