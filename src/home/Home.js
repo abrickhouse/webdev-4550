@@ -5,13 +5,20 @@ import Nav from "../Nav";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import reviews from "../Data/reviews.json";
 import Review from "../search/Review";
+import * as client from "../search/client"
+
 function Home() {
  const [upcomingMovies, setUpcomingMovies] = useState([]);
  const [trendingMovies, setTrendingMovies] = useState([]);
  const [popularMovies, setPopularMovies] = useState([]);
+ const [reviews, setReviews] = useState([]);
  const { currentUser } = useSelector((state) => state.UserReducer);
+
+ const fetchReviews = async () => {
+  const reviews = await client.findAllReviews();
+  setReviews(reviews);
+ };
  useEffect(() => {
   const options = {
    method: "GET",
@@ -48,6 +55,9 @@ function Home() {
     setPopularMovies(data.results);
    })
    .catch((err) => console.error(err));
+   
+  fetchReviews();
+  console.log(fetchReviews());
  }, []);  
  return (
   <div class="px-2 bg-main">
@@ -151,7 +161,9 @@ function Home() {
             </Link>
           </li>
         ))}
+        <Link to={`/popular`}>
         <li className="list-group-item"><button className="viewButton">View more <i class="fas fa-chevron-right"></i></button></li>
+        </Link>
       </ul>
       <ul className="home list-group">
         <li className="list-group-item active"><h4>Trending Movies</h4></li>
@@ -177,7 +189,9 @@ function Home() {
             </Link>
           </li>
         ))}
-        <li className="list-group-item"><button className="viewButton">View more <i class="fas fa-chevron-right"></i></button></li>
+        <Link to={`/trending`}>
+        <li className="list-group-item"><button className="viewButton">View more <i className="fas fa-chevron-right"></i></button></li>
+        </Link>
       </ul>
     </div>
      <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12">

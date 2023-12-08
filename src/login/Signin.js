@@ -11,13 +11,6 @@ function Signin() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const signin = async () => {
-    if (!credentials.username || !credentials.password) {
-      setShowError(true);
-      setTimeout(() => {
-        setShowError(false);
-      }, 5000);
-      return;
-    }
     try {
       const user = await client.signin(credentials);
       dispatch(setCurrentUser(user));

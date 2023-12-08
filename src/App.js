@@ -15,6 +15,8 @@ import store from "./store";
 import SearchRes from "./search/SearchRes";
 import CurrentUser from "./login/CurrentUser"
 import UpcomingMovies from "./home/UpcomingMovies";
+import TrendingMovies from "./home/TrendingMovies";
+import PopularMovies from "./home/PopularMovies";
 
 function App() {
  return (
@@ -27,6 +29,8 @@ function App() {
           <Route path="/register/*" element={<Signup />} />
           <Route path="/" element={<Home />} />
           <Route path="/upcoming" element={<UpcomingMovies />} />
+          <Route path="/trending" element={<TrendingMovies />} />
+          <Route path="/popular" element={<PopularMovies />} />
           <Route path="/screenings/*" element={<Screenings />} />
           <Route path="/search/" element={<Search />} />
           <Route path="/result/:que" element={<SearchRes />} />

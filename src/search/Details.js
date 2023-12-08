@@ -18,6 +18,7 @@ function Details() {
  const location = useLocation();
  const { currentUser } = useSelector((state) => state.UserReducer);
  const { from } = location.state;
+ console.log(location.state);
  const [result, setResult] = useState();
  const [reviews, setReviews] = useState([]);
  const [bookmarked, setBookmarked] = useState(false);

@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Nav from "../Nav";
 import { useNavigate } from "react-router-dom";
-function UpcomingMovies() {
-  const [upcomingMovies, setUpcomingMovies] = useState([]);
+
+function PopularMovies() {
+  const [popularMovies, setPopularMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
-  
-
   useEffect(() => {
     const options = {
       method: "GET",
@@ -18,19 +17,19 @@ function UpcomingMovies() {
     };
 
     
-    fetchUpcomingMovies(currentPage, options);
+    fetchPopularMovies(currentPage, options);
     navigate(`?page=${currentPage}`);
-  }, [currentPage]);
+  }, [currentPage, navigate]);
   
 
-  const fetchUpcomingMovies = (page, options) => {
+  const fetchPopularMovies = (page, options) => {
     fetch(
-      `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=${page}`,
+      `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}`,
       options
     )
       .then((response) => response.json())
       .then((data) => {
-        setUpcomingMovies(data.results);
+        setPopularMovies(data.results);
       })
       .catch((err) => console.error(err));
   };
@@ -44,18 +43,18 @@ function UpcomingMovies() {
       setCurrentPage(currentPage - 1);
     }
   };
-
+  console.log(`/popular/?page=${currentPage}`);
   return (
     <div className="px-2 bg-main">
     <Nav />
     <Link to='/' class="link">
     <i className="fa fa-chevron-left float-start mx-1 my-1"></i> Back
    </Link>
-    <h2>Upcoming Movies</h2>
+    <h2>Popular Movies</h2>
     <div className="row movie">
-      {upcomingMovies.map((movie) => (
+      {popularMovies.map((movie) => (
         <div key={movie.id} className="movie-card">
-          <Link to={`/details/${movie.id}`} state={{ from: `/upcoming/?page=${currentPage}` }} className="movie-link">
+          <Link to={`/details/${movie.id}`} state={{ from: `/popular/?page=${currentPage}` }} className="movie-link">
           <img
             src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
             alt={`${movie.title} Poster`}
@@ -77,7 +76,7 @@ function UpcomingMovies() {
       <button onClick={handleNextPage} className="page-button-right"><i className="fas fa-chevron-right"></i></button>
     </div>
   </div>
-  );
+  );    
 }
 
-export default UpcomingMovies;
+export default PopularMovies;
