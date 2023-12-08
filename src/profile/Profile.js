@@ -160,7 +160,7 @@ function Profile() {
          <ul className="list-group">
           {currentUser.bookmarks.map((b, index) => (
            <Link to={`/details/${b}`} state={{ from: `/profile/${user.id}` }}>
-            <MiniMovie user={""} date={""} movie={b} />
+            <MiniMovie movie={b} />
            </Link>
           ))}
          </ul>
