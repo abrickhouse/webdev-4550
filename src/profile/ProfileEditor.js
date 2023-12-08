@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import "./Profile.css";
 import { Link, useNavigate } from "react-router-dom";
-import { updateUser, selectUser } from "./ProfileReducer";
-import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import * as client from "../login/client";
 
 function ProfileEditor() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { uId } = useParams();
@@ -19,16 +17,13 @@ function ProfileEditor() {
     ...user,
   });
 
-  const handleSave = () => {
-    handleUpdateUser(editedUser);
-    navigate(`/Profile/${uId}`);
-  };
-
-  const handleUpdateUser = async (user) => {
-    const updatedUser = user;
-    // for now theres a placeholder, but this is where the API call would go
-    // const updatedUser = await updateUser(user);
-    dispatch(updateUser(updatedUser));
+  const save = async () => {
+    try {
+      await client.updateUser(editedUser);
+      navigate(`/Profile/${uId}`);
+    } catch (error) {
+      // console.error("Update failed: ", error);
+    }
   };
 
   return (
@@ -45,8 +40,8 @@ function ProfileEditor() {
         maxWidth: "100%",
         maxHeight: "100%",
         height: "100vh",
-        minHeight: "100vh", 
-        overflowY: "auto", 
+        minHeight: "100vh",
+        overflowY: "auto",
       }}
     >
       <h1 className="text-white text-center p-4">Edit Your Profile</h1>
@@ -130,7 +125,7 @@ function ProfileEditor() {
         />
       </div>
 
-      <button onClick={handleSave} className="btn btn-success">
+      <button onClick={save} className="btn btn-success">
         Save
       </button>
       <Link to={`/profile/${uId}`} className="btn btn-danger ms-2">

@@ -25,8 +25,13 @@ function Profile() {
  }
 
  const { currentUser } = useSelector((state) => state.UserReducer);
+ 
  // boolean for if the logged in user is viewing their own profile
- const isOwnProfile = uId === currentUser;
+ let isOwnProfile = false;
+ 
+ if (currentUser) {
+  isOwnProfile = (uId == currentUser.id);
+ }
 
  const [showFollowers, setShowFollowers] = useState(true);
  const [showFollowing, setShowFollowing] = useState(true);
@@ -123,8 +128,8 @@ function Profile() {
           className="btn btn-light form-control"
           onClick={() => setShowReviews(!showReviews)}
          >
-          {showReviews ? "Hide Reviews" : "Display Reviews"} (
-          {reviews.filter((r) => r.user === user.username).length})
+          {showReviews ? "Hide Reviews" : "Display Reviews"} 
+          {/* ({reviews.filter((r) => r.user === user.username).length}) */}
          </button>{" "}
         </div>
         {showReviews && (
@@ -215,7 +220,8 @@ function Profile() {
             >
              <li
               className="list-group-item border-dark border-2 rounded wd-li"
-              key={index}
+
+
              >
               <div>{response.comment}</div>
              </li>
@@ -282,7 +288,7 @@ function Profile() {
          <Link to={`/profile/${f.id}`} className="wd-link">
           <li
            className="list-group-item border-dark border-2 rounded wd-li"
-           key={f.id}
+
           >
            {f.name}
           </li>
@@ -299,7 +305,8 @@ function Profile() {
        <p>Email: {user.email}</p>
        <p>Phone Number: {user.phoneNumber}</p>
        <p>Address: {user.address}</p>
-       <p className="mt-4">
+       <hr className="mt-4" />
+       <p className="mt-3 text-danger">
         <b>
          ***Disclaimer: This information is only available if you are signed in
          to this account. <u>We value your privacy!</u>
