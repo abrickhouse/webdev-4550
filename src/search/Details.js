@@ -20,7 +20,7 @@ function Details() {
  const { from } = location.state;
  const [result, setResult] = useState();
  const [reviews, setReviews] = useState([]);
- const [bookmarked, setBookmarked] = useState(false);
+ //  const [bookmarked, setBookmarked] = useState(false);
 
  const fetchReviews = async () => {
   const revs = await client.findAllReviews();
@@ -46,7 +46,6 @@ function Details() {
    .catch(function (error) {
     console.error(error);
    });
-  setBookmarked(currentUser?.bookmarks?.includes(parseInt(result?.id)));
  };
 
  const [open, setOpen] = React.useState(false);
@@ -77,7 +76,7 @@ function Details() {
  };
 
  const bookmark = async () => {
-  setBookmarked(true);
+  // setBookmarked(true);
   const newU = {
    _id: currentUser._id,
    name: currentUser.name,
@@ -104,7 +103,7 @@ function Details() {
  };
 
  const unbookmark = async () => {
-  setBookmarked(false);
+  // setBookmarked(false);
   const newU = {
    _id: currentUser._id,
    name: currentUser.name,
@@ -171,7 +170,7 @@ function Details() {
        <div class="mx-3">Runtime: {result.runtime} min</div>
        {currentUser && (
         <div>
-         {bookmarked ? (
+         {currentUser.bookmarks.includes(result.id) ? (
           <button class="my-2 mx-2 book" onClick={(e) => unbookmark()}>
            <i className="fa fa-2x fa-solid fa-bookmark"></i>
           </button>
