@@ -16,14 +16,20 @@ function Profile() {
  const [users, setUsers] = useState([]);
  const [user, setUser] = useState();
 
+ // generate a list of followers and following from the indices in the user object
+ const [followers, setEr] = useState([]);
+ const [following, setIng] = useState([]);
+
  const fetchUsers = async () => {
   const fetchedUsers = await uClient.findAllUsers();
   await setUsers(fetchedUsers);
   await setUser(fetchedUsers.find((user) => user.id === uId));
+  await setEr(fetchedUsers.filter((u) => u.following.includes(uId)));
+  await setIng(fetchedUsers.filter((u) => u.followers.includes(uId)));
 
-  console.log(fetchedUsers);
+  // console.log(fetchedUsers);
   console.log(users);
-  console.log(fetchedUsers.find((user) => user.id === uId));
+  // console.log(fetchedUsers.find((user) => user.id === uId));
   console.log(user);
  };
 
@@ -61,10 +67,6 @@ function Profile() {
  const [showReviews, setShowReviews] = useState(true);
  const [showAddedMovies, setShowAddedMovies] = useState(true);
  const [showResponses, setShowResponses] = useState(true);
-
- // generate a list of followers and following from the indices in the user object
- const followers = users.filter((u) => user.followers.includes(u.id));
- const following = users.filter((u) => user.following.includes(u.id));
 
  useEffect(() => {
   fetchScreenings();
