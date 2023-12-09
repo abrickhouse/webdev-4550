@@ -16,7 +16,6 @@ import CurrentUser from "./login/CurrentUser"
 import UpcomingMovies from "./home/UpcomingMovies";
 import TrendingMovies from "./home/TrendingMovies";
 import PopularMovies from "./home/PopularMovies";
-
 function App() {
  return (
    <Provider store={store}>

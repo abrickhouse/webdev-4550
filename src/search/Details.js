@@ -89,7 +89,6 @@ function Details() {
    //  const addB = await uClient.updateUser(newU);
    //  setCurrentUser(addB);
    await uClient.updateUser(newU);
-   dispatch(setCurrentUser(newU));
   } catch (err) {
    console.log(err);
   }

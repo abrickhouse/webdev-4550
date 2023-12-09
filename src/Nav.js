@@ -34,9 +34,13 @@ function Nav() {
                 Sign Out
             </Link>
         }
-        <Link className="float-end nav-linkx" to="/login">
-          Login
-        </Link>
+
+        {
+            !currentUser && 
+            <Link className="float-end nav-linkx" to="/login">
+                Login
+            </Link>
+        }
         <Link className="float-end nav-linkx" to={`/Profile/${currentUserId}`}>
           Profile
         </Link>

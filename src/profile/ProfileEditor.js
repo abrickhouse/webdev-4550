@@ -21,11 +21,45 @@ function ProfileEditor() {
     navigate("/");
   }
 
+  const [showModal, setShowModal] = useState(false);
+
+  const handleDeleteClick = () => {
+    setShowModal(true);
+  };
+
+  const deleteAccount = async () => {
+    try {
+      // Your delete logic here
+      await client.deleteUser(currentUser.id);
+      dispatch(setCurrentUser(null));
+      navigate(`/login`);
+    } catch (error) {
+      console.error("Cannot delete account.");
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setShowModal(false);
+  };
+
+
+
   // Local state to manage input values
   const [editedUser, setEditedUser] = useState({
     ...currentUser,
   });
 
+  console.log(currentUser)
+
+  // const deleteAccount = async () => {
+  //   try {
+  //     await client.deleteUser(currentUser.id);
+  //     dispatch(setCurrentUser(null));
+  //     navigate(`/login`);
+  //   } catch (error) {
+  //     console.error("Cannot delete account.")
+  //   }
+  // };
   const save = async () => {
     try {
       await client.updateUser(editedUser);
@@ -135,6 +169,24 @@ function ProfileEditor() {
       <Link to={`/profile/${uId}`} className="btn btn-danger ms-2">
         Cancel
       </Link>
+      {/* {showModal && (
+      <div className="modal">
+        <div className="modal-content">
+          <h2>Confirm Deletion</h2>
+          <p>Are you sure you want to delete your account?</p>
+          <button onClick={deleteAccount} className="btn btn-danger">
+            Confirm Delete
+          </button>
+          <button onClick={handleCancelDelete} className="btn btn-secondary">
+            Cancel
+          </button>
+        </div>
+      </div>
+    )} */}
+      <button onClick={deleteAccount} className="btn btn-danger delete">
+        Delete
+      </button>
+      
     </div>
   );
 }

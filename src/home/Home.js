@@ -7,13 +7,24 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Review from "../search/Review";
 import * as client from "../search/client"
-
+import Pagination from "./Pagination";
 function Home() {
  const [upcomingMovies, setUpcomingMovies] = useState([]);
  const [trendingMovies, setTrendingMovies] = useState([]);
  const [popularMovies, setPopularMovies] = useState([]);
- const [reviews, setReviews] = useState([]);
  const { currentUser } = useSelector((state) => state.UserReducer);
+ const [reviews, setReviews] = useState([]);
+
+ //Pagination for Reviews
+ const [currentPage, setCurrentPage] = useState(1);
+ const [reviewsPerPage] = useState(10);
+ //Non user
+ const indexOfLastReview = currentPage * reviewsPerPage;
+ const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
+ const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
+ const paginate = pageNumber => setCurrentPage(pageNumber);
+
+
 
  const fetchReviews = async () => {
   const reviews = await client.findAllReviews();
@@ -65,7 +76,7 @@ function Home() {
    <div>
     <div className="row" style={{width:'100%' }}>
       <div className="col-xl-8 col-lg-7 col-md-6 col-sm-12 col-xs-12">
-      <ul className="activity list-group">
+      <ul className="home list-group">
         <li className="list-group-item active"><h4>Latest Activity</h4> </li>
         {currentUser ? (
           //Filter all the following users for the activity feed
@@ -87,7 +98,7 @@ function Home() {
             </Link>
           ))
           ) : (
-          reviews.map((review, index) => (
+          currentReviews.map((review, index) => (
             <Link
               key={index}
               to={`/details/${review.movie_id}`}
@@ -106,6 +117,11 @@ function Home() {
           ))
         )}
       </ul>
+      <Pagination
+        reviewsPerPage={reviewsPerPage}
+        totalReviews={reviews.length}
+        paginate={paginate}
+      />
       </div>
       <div className="col-xl-4 col-lg-5 col-md-6 col-sm-12 col-xs-12">
       <ul className="home list-group">
@@ -198,6 +214,7 @@ function Home() {
     </div>
    </div>
   </div>
+  
  );
 }
 export default Home;

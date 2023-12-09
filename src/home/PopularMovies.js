@@ -39,11 +39,24 @@ function PopularMovies() {
     const nextPage = getPageNumberFromUrl() + 1;
     navigate(`?page=${nextPage}`);
   };
+  
+
+  const handleNextNextPage = () => {
+    const nextPage = getPageNumberFromUrl() + 2;
+    navigate(`?page=${nextPage}`);
+  };
 
   const handlePrevPage = () => {
     const currentPage = getPageNumberFromUrl();
     if (currentPage > 1) {
       navigate(`?page=${currentPage - 1}`);
+    }
+  };
+
+  const handlePrevPrevPage = () => {
+    const currentPage = getPageNumberFromUrl();
+    if (currentPage > 1) {
+      navigate(`?page=${currentPage - 2}`);
     }
   };
   console.log(`${location.pathname}${location.search}`);
@@ -76,26 +89,34 @@ function PopularMovies() {
                 <p className="movie-release-date">
                   Release Date: {movie.release_date}
                 </p>
-                <i className="fas fa-star star-icon"></i> {movie.vote_average}
+                <p className="movie-rating"><i className="fas fa-star star-icon"></i>  {movie.vote_average}</p>
               </div>
             </Link>
           </div>
         ))}
       </div>
       <div className="d-flex justify-content-center">
-          { 
-            getPageNumberFromUrl() !== 1 && (
-              <button
-                onClick={handlePrevPage}
-                className="page-button-left"
-              >
-                <i className="fas fa-chevron-left"></i>
-              </button>
-            )
-          }
-        <button onClick={handleNextPage} className="page-button-right">
-          <i className="fas fa-chevron-right"></i>
-        </button>
+      <button
+        onClick={handlePrevPrevPage}
+        className="page-button-left"
+        style={{ display: getPageNumberFromUrl() > 2 ? 'block' : 'none' }}>
+        {getPageNumberFromUrl() - 2}
+      </button>
+      <button
+        onClick={handlePrevPage}
+        className="page-button-left"
+        style={{ display: getPageNumberFromUrl() > 1 ? 'block' : 'none' }}>
+        {getPageNumberFromUrl() - 1}
+      </button>
+      <button disabled className="page-button-current">
+        {getPageNumberFromUrl()}
+      </button>
+      <button onClick={handleNextPage} className="page-button-right">
+        {getPageNumberFromUrl() + 1}
+      </button>
+      <button onClick={handleNextNextPage} className="page-button-right">
+        {getPageNumberFromUrl() + 2}
+      </button>
       </div>
     </div>
   );
