@@ -29,8 +29,7 @@ function ProfileEditor() {
 
   const deleteAccount = async () => {
     try {
-      // Your delete logic here
-      await client.deleteUser(currentUser.id);
+      await client.deleteUser(currentUser);
       dispatch(setCurrentUser(null));
       navigate(`/login`);
     } catch (error) {
@@ -42,6 +41,7 @@ function ProfileEditor() {
     setShowModal(false);
   };
 
+  console.log(showModal);
 
 
   // Local state to manage input values
@@ -49,17 +49,8 @@ function ProfileEditor() {
     ...currentUser,
   });
 
-  console.log(currentUser)
 
-  // const deleteAccount = async () => {
-  //   try {
-  //     await client.deleteUser(currentUser.id);
-  //     dispatch(setCurrentUser(null));
-  //     navigate(`/login`);
-  //   } catch (error) {
-  //     console.error("Cannot delete account.")
-  //   }
-  // };
+ 
   const save = async () => {
     try {
       await client.updateUser(editedUser);
@@ -169,21 +160,25 @@ function ProfileEditor() {
       <Link to={`/profile/${uId}`} className="btn btn-danger ms-2">
         Cancel
       </Link>
-      {/* {showModal && (
+      {showModal && (
       <div className="modal">
         <div className="modal-content">
-          <h2>Confirm Deletion</h2>
-          <p>Are you sure you want to delete your account?</p>
-          <button onClick={deleteAccount} className="btn btn-danger">
-            Confirm Delete
-          </button>
-          <button onClick={handleCancelDelete} className="btn btn-secondary">
+          <div className="d-flex justify-content-center">
+          <h2>Are you sure?</h2>
+          </div>
+          <p className="delete-text text-center">Are you sure you want to delete your account? This action cannot be undone</p>
+          <div style={{width:"100%"}}>
+          <button onClick={handleCancelDelete} className="btn btn-secondary" style={{width:"150px", float:"left"}}>
             Cancel
           </button>
+          <button onClick={deleteAccount} className="btn btn-danger" style={{width:"150px", float:"right"}}>
+            Delete
+          </button>
+          </div>
         </div>
       </div>
-    )} */}
-      <button onClick={deleteAccount} className="btn btn-danger delete">
+    )}
+      <button onClick={handleDeleteClick} className="btn btn-danger delete">
         Delete
       </button>
       

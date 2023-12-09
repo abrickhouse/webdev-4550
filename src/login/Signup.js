@@ -2,10 +2,10 @@ import Nav from "../Nav";
 import React, { useEffect, useState } from "react";
 import * as client from "./client";
 import { useNavigate } from "react-router-dom";
+import { setCurrentUser } from "./UserReducer";
 
 function Signup() {
   const navigate = useNavigate();
-  const [totalUsers, setTotalUser] = useState(0); 
   const [credentials, setCredentials] = useState({
     name: "",
     username: "",
@@ -80,14 +80,13 @@ function Signup() {
       }, 5000);
     }
   };
-  const fetchTotalUsers = async () => {
-    const total = await client.getTotalUsers();
-    setTotalUser(total);
-    setCredentials({ ...credentials, id: (total + 1).toString() });
-   };
+
 
   useEffect(() => {
-    fetchTotalUsers();
+    const idString = new Date().getTime().toString();
+    const updatedCredentials = { ...credentials, id: idString };
+    setCredentials(updatedCredentials);
+    setCurrentUser(updatedCredentials);
   }, [])
   return (
     <div className="background-sign">

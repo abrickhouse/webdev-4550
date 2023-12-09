@@ -17,8 +17,6 @@ function CurrentUser({ children }) {
  }, []);
  return (
   <div>
-   <h1>currentUser</h1>
-   {JSON.stringify(user)}
    {children}
   </div>
  );

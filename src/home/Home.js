@@ -16,14 +16,32 @@ function Home() {
  const [reviews, setReviews] = useState([]);
 
  //Pagination for Reviews
- const [currentPage, setCurrentPage] = useState(1);
- const [reviewsPerPage] = useState(10);
- //Non user
- const indexOfLastReview = currentPage * reviewsPerPage;
- const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
- const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
- const paginate = pageNumber => setCurrentPage(pageNumber);
+ const [currentPageUser, setCurrentPageUser] = useState(1);
+ const [currentPageNonUser, setCurrentPageNonUser] = useState(1);
+ const [reviewsPerPage] = useState(10); // Assuming you want 5 reviews per page
+ 
 
+ // Filter reviews for currentUser
+ const filteredReviewsForUser = currentUser
+   ? reviews.filter(review => currentUser.following.includes(review.user_id))
+   : [];
+
+
+ const totalReviewsForUser = filteredReviewsForUser.length;
+ const totalReviewsNonUser = reviews.length;
+
+
+ const indexOfLastReviewUser = currentPageUser * reviewsPerPage;
+ const indexOfFirstReviewUser = indexOfLastReviewUser - reviewsPerPage;
+ const currentReviewsUser = filteredReviewsForUser.slice(indexOfFirstReviewUser, indexOfLastReviewUser);
+
+
+ const indexOfLastReviewNonUser = currentPageNonUser * reviewsPerPage;
+ const indexOfFirstReviewNonUser = indexOfLastReviewNonUser - reviewsPerPage;
+ const currentReviewsNonUser = reviews.slice(indexOfFirstReviewNonUser, indexOfLastReviewNonUser);
+
+ const paginateUser = pageNumber => setCurrentPageUser(pageNumber);
+ const paginateNonUser = pageNumber => setCurrentPageNonUser(pageNumber);
 
 
  const fetchReviews = async () => {
@@ -68,7 +86,7 @@ function Home() {
    .catch((err) => console.error(err));
    
   fetchReviews();
- }, []);  
+ }, []);
  return (
   <div class="px-2 bg-main">
    <Nav />
@@ -80,7 +98,7 @@ function Home() {
         <li className="list-group-item active"><h4>Latest Activity</h4> </li>
         {currentUser ? (
           //Filter all the following users for the activity feed
-          reviews.filter(review => currentUser.following.includes(review.user_id)).map((review, index) => (
+          currentReviewsUser.map((review, index) => (
             <Link
               key={index}
               to={`/details/${review.movie_id}`}
@@ -98,7 +116,7 @@ function Home() {
             </Link>
           ))
           ) : (
-          currentReviews.map((review, index) => (
+          currentReviewsNonUser.map((review, index) => (
             <Link
               key={index}
               to={`/details/${review.movie_id}`}
@@ -117,11 +135,19 @@ function Home() {
           ))
         )}
       </ul>
+      {currentUser ? (
       <Pagination
         reviewsPerPage={reviewsPerPage}
-        totalReviews={reviews.length}
-        paginate={paginate}
+        totalReviews={totalReviewsForUser}
+        paginate={paginateUser}
       />
+    ) : (
+      <Pagination
+        reviewsPerPage={reviewsPerPage}
+        totalReviews={totalReviewsNonUser}
+        paginate={paginateNonUser}
+      />
+    )}
       </div>
       <div className="col-xl-4 col-lg-5 col-md-6 col-sm-12 col-xs-12">
       <ul className="home list-group">

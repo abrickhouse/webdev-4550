@@ -62,7 +62,7 @@ function Signin() {
       <div className="container sign1">
         <div className="container sign">
           <div className="d-flex justify-content-center">
-            <h2 className="webtitle">Movie Website</h2>
+            <h2 className="webtitle">ScreenSpeak</h2>
           </div>
           <form>
             <div className="form-group sign">
