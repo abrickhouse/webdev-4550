@@ -1,23 +1,10 @@
 import { React, useState } from "react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
 import "../App.css";
-import * as client from "../search/client.js";
 import axios from "axios";
-import { useSelector } from "react-redux";
 
 function MiniMovie(props) {
  const [result, setResult] = useState();
-
- const users = useSelector((state) => state.profile.users);
- const user = users.filter((u) => props.user === u.name)[0];
-
- const [screenings, setScreenings] = useState([]);
-
- const fetchScreenings = async () => {
-  const scs = await client.findAllScreenings();
-  setScreenings(scs);
- };
 
  const options = {
   method: "GET",
@@ -33,7 +20,6 @@ function MiniMovie(props) {
   axios
    .request(options)
    .then(function (response) {
-    console.log(response.data);
     setResult(response.data);
    })
    .catch(function (error) {
@@ -43,7 +29,6 @@ function MiniMovie(props) {
 
  useEffect(() => {
   getInfo();
-  fetchScreenings();
  }, []);
  return (
   <li class="round my-1 mx-1">

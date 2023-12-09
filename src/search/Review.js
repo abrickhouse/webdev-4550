@@ -2,17 +2,22 @@ import { React, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import * as client from "./client";
+import * as uClient from "../login/client.js";
 import "../App.css";
 
 function Review(props) {
  const { currentUser } = useSelector((state) => state.UserReducer);
  const [Repping, setRep] = useState(false);
  const [reply, setReply] = useState("");
- const users = useSelector((state) => state.profile.users);
- const user = users.filter((u) => props.user === u.name)[0];
+ const [users, setUsers] = useState([]);
+ const fetchUsers = async () => {
+  const reps = await uClient.findAllUsers();
+  setUsers(reps);
+ };
+
+ const user = users.filter((u) => props.user === u.username)[0];
 
  const [response, setResponse] = useState([]);
-
  const fetchResponses = async () => {
   const reps = await client.findAllResponses();
   setResponse(reps);
@@ -41,6 +46,7 @@ function Review(props) {
  };
 
  useEffect(() => {
+  fetchUsers();
   fetchResponses();
  }, []);
 

@@ -5,7 +5,7 @@ import { Routes, Route, Navigate } from "react-router";
 import React, { Component } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import * as client from "./client";
 import * as uClient from "../login/client";
@@ -20,8 +20,9 @@ function Details() {
  const { from } = location.state;
  const [result, setResult] = useState();
  const [reviews, setReviews] = useState([]);
- const [bookmarked, setBookmarked] = useState(false);
+ //  const [bookmarked, setBookmarked] = useState(false);
 
+ console.log(from);
  const fetchReviews = async () => {
   const revs = await client.findAllReviews();
   setReviews(revs);
@@ -46,7 +47,6 @@ function Details() {
    .catch(function (error) {
     console.error(error);
    });
-  setBookmarked(currentUser?.bookmarks?.includes(parseInt(result?.id)));
  };
 
  const [open, setOpen] = React.useState(false);
@@ -76,8 +76,10 @@ function Details() {
   }
  };
 
+ const dispatch = useDispatch();
+
  const bookmark = async () => {
-  setBookmarked(true);
+  // setBookmarked(true);
   const newU = {
    _id: currentUser._id,
    name: currentUser.name,
@@ -96,15 +98,17 @@ function Details() {
   };
 
   try {
-   const addB = await uClient.updateUser(newU);
-   setCurrentUser(addB);
+   //  const addB = await uClient.updateUser(newU);
+   //  setCurrentUser(addB);
+   await uClient.updateUser(newU);
+   dispatch(setCurrentUser(newU));
   } catch (err) {
    console.log(err);
   }
  };
 
  const unbookmark = async () => {
-  setBookmarked(false);
+  // setBookmarked(false);
   const newU = {
    _id: currentUser._id,
    name: currentUser.name,
@@ -122,8 +126,10 @@ function Details() {
    bookmarks: currentUser.bookmarks.filter((b) => b !== result.id),
   };
   try {
-   const removeB = await uClient.updateUser(newU);
-   setCurrentUser(removeB);
+   //  const removeB = await uClient.updateUser(newU);
+   //  setCurrentUser(removeB);
+   await uClient.updateUser(newU);
+   dispatch(setCurrentUser(newU));
   } catch (err) {
    console.log(err);
   }
@@ -171,7 +177,7 @@ function Details() {
        <div class="mx-3">Runtime: {result.runtime} min</div>
        {currentUser && (
         <div>
-         {bookmarked ? (
+         {currentUser.bookmarks.includes(result.id) ? (
           <button class="my-2 mx-2 book" onClick={(e) => unbookmark()}>
            <i className="fa fa-2x fa-solid fa-bookmark"></i>
           </button>

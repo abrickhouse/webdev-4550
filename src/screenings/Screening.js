@@ -12,9 +12,13 @@ function Screening(props) {
  const [views, setViews] = useState(props.viewers.length);
  const [joined, setJoined] = useState(false);
  const { currentUser } = useSelector((state) => state.UserReducer);
+ const [users, setUsers] = useState([]);
+ const fetchUsers = async () => {
+  const reps = await uClient.findAllUsers();
+  setUsers(reps);
+ };
 
- const users = useSelector((state) => state.profile.users);
- const user = users.find((u) => props.user === u.name);
+ const user = users.filter((u) => props.user === u.username)[0];
 
  const [screenings, setScreenings] = useState([]);
 
@@ -63,6 +67,7 @@ function Screening(props) {
  useEffect(() => {
   getInfo();
   fetchScreenings();
+  fetchUsers();
  }, []);
  return (
   <li class="round  my-1">
