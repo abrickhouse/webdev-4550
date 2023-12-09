@@ -1,35 +1,47 @@
 import { useParams } from "react-router-dom";
 import Nav from "../Nav";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import Review from "../search/Review";
 import MiniScreening from "../screenings/MiniScreening";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import reviews from "../Data/reviews.json";
-import screenings from "../Data/screenings.json";
-import response from "../Data/response.json";
-import * as client from "../login/client";
+import * as client from "../search/client.js";
+import * as uClient from "../login/client.js";
 import MiniMovie from "../screenings/MiniMovie";
 
 // Profile page for a user. Only displays sensitive information if this screen is the logged in user's profile
 function Profile() {
  const { uId } = useParams();
  const [users, setUsers] = useState([]);
+ const [user, setUser] = useState();
 
  const fetchUsers = async () => {
-  const fetchedUsers = await client.findAllUsers();
+  const fetchedUsers = await uClient.findAllUsers();
   setUsers(fetchedUsers);
+
+  console.log(fetchedUsers);
+  setUser(fetchedUsers.find((user) => user.id.toString() === uId));
  };
 
- useEffect(() => {
-  fetchUsers();
- }, []);
-
- // finds the user object for the user with the id uId
- const user = users.find((user) => user.id == uId);
-
  const navigate = useNavigate();
+ const [screenings, setScreenings] = useState([]);
+ const fetchScreenings = async () => {
+  const scs = await client.findAllScreenings();
+  setScreenings(scs);
+ };
+
+ const [reviews, setReviews] = useState([]);
+ const fetchReviews = async () => {
+  const revs = await client.findAllReviews();
+  setReviews(revs);
+ };
+
+ const [response, setResponse] = useState([]);
+ const fetchResponses = async () => {
+  const reps = await client.findAllResponses();
+  setResponse(reps);
+ };
 
  const { currentUser } = useSelector((state) => state.UserReducer);
 
@@ -37,7 +49,7 @@ function Profile() {
  let isOwnProfile = false;
 
  if (currentUser) {
-  isOwnProfile = uId == currentUser.id;
+  isOwnProfile = uId === currentUser.id;
  }
 
  const [showFollowers, setShowFollowers] = useState(true);
@@ -48,14 +60,21 @@ function Profile() {
  const [showResponses, setShowResponses] = useState(true);
 
  // generate a list of followers and following from the indices in the user object
- const followers = users.filter((u) => user.followers.includes(u.id));
- const following = users.filter((u) => user.following.includes(u.id));
+ const followers = users.filter((u) => user?.followers.includes(u.id));
+ const following = users.filter((u) => user?.following.includes(u.id));
+
+ useEffect(() => {
+  fetchScreenings();
+  fetchReviews();
+  fetchResponses();
+  fetchUsers();
+ }, []);
 
  return (
-  user && (
-   <div className="px-2 bg-main bg-dark">
-    {" "}
-    <Nav />
+  <div className="px-2 bg-main bg-dark">
+   {" "}
+   <Nav />
+   {user && (
     <div className="mx-5 my-2">
      <div className="row" style={{ width: "100%" }}>
       {/* column for Profile Picture, Name, and Bio */}
@@ -136,8 +155,8 @@ function Profile() {
            className="btn btn-light form-control"
            onClick={() => setShowReviews(!showReviews)}
           >
-           {showReviews ? "Hide Reviews" : "Display Reviews"}
-           {/* ({reviews.filter((r) => r.user === user.username).length}) */}
+           {showReviews ? "Hide Reviews" : "Display Reviews"} (
+           {reviews.filter((r) => r.user === user.username).length})
           </button>{" "}
          </div>
          {showReviews && (
@@ -170,10 +189,10 @@ function Profile() {
           </button>
          </div>
          {showBookmarks && (
-          <ul className="list-group">
-           {currentUser.bookmarks.map((b, index) => (
+          <ul className="list-group flex-wrap flex-row">
+           {user?.bookmarks.map((b, index) => (
             <Link to={`/details/${b}`} state={{ from: `/profile/${user.id}` }}>
-             <MiniMovie user={""} date={""} movie={b} />
+             <MiniMovie movie={b} key={index} />
             </Link>
            ))}
           </ul>
@@ -226,7 +245,10 @@ function Profile() {
               to={`/details/${response.movie_id}`}
               state={{ from: `/profile/${user.id}` }}
              >
-              <li className="list-group-item border-dark border-2 rounded wd-li">
+              <li
+               className="list-group-item border-dark border-2 rounded wd-li"
+               key={index}
+              >
                <div>{response.comment}</div>
               </li>
              </Link>
@@ -290,7 +312,10 @@ function Profile() {
         <ul className="list-group">
          {following.map((f) => (
           <Link to={`/profile/${f.id}`} className="wd-link">
-           <li className="list-group-item border-dark border-2 rounded wd-li">
+           <li
+            className="list-group-item border-dark border-2 rounded wd-li"
+            key={f.id}
+           >
             {f.name}
            </li>
           </Link>
@@ -317,8 +342,8 @@ function Profile() {
       )}
      </div>
     </div>
-   </div>
-  )
+   )}
+  </div>
  );
 }
 
