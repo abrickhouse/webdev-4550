@@ -79,7 +79,9 @@ function Review(props) {
      .filter((r) => r.rev_id === props.id)
      .map((res) => (
       <div className="res mx-4 my-2">
-       <h6>{res.user}</h6>
+       <Link to={`/profile/${users.find((u) => res.user === u.username)?.id}`}>
+        <h6 class="col">{res.user}</h6>
+       </Link>
 
        {res.comment}
       </div>
