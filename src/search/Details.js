@@ -81,19 +81,7 @@ function Details() {
  const bookmark = async () => {
   // setBookmarked(true);
   const newU = {
-   _id: currentUser._id,
-   name: currentUser.name,
-   id: currentUser.id,
-   username: currentUser.username,
-   password: currentUser.password,
-   followers: currentUser.followers,
-   following: currentUser.following,
-   bio: currentUser.bio,
-   profilePicture: currentUser.profilePicture,
-   userType: "Typical User",
-   email: currentUser.email,
-   phoneNumber: currentUser.phoneNumber,
-   address: currentUser.address,
+   ...currentUser,
    bookmarks: [...currentUser.bookmarks, result.id],
   };
 
@@ -110,19 +98,7 @@ function Details() {
  const unbookmark = async () => {
   // setBookmarked(false);
   const newU = {
-   _id: currentUser._id,
-   name: currentUser.name,
-   id: currentUser.id,
-   username: currentUser.username,
-   password: currentUser.password,
-   followers: currentUser.followers,
-   following: currentUser.following,
-   bio: currentUser.bio,
-   profilePicture: currentUser.profilePicture,
-   userType: "Typical User",
-   email: currentUser.email,
-   phoneNumber: currentUser.phoneNumber,
-   address: currentUser.address,
+   ...currentUser,
    bookmarks: currentUser.bookmarks.filter((b) => b !== result.id),
   };
   try {
