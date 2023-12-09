@@ -1,43 +1,42 @@
 import React, { useState } from "react";
 import "./Profile.css";
 import { Link, useNavigate } from "react-router-dom";
-import { updateUser, selectUser } from "./ProfileReducer";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import * as client from "../login/client";
+import { setCurrentUser } from "../login/UserReducer";
+
 
 function ProfileEditor() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { uId } = useParams();
-  const users = useSelector((state) => state.profile.users);
-  const user = users.find((user) => user.id === parseInt(uId));
+  const { currentUser } = useSelector((state) => state.UserReducer);
+
+  // check to see if current logged in user matches the user id in the url
+  // this makes sure that only the user can edit their own profile
+  const isOwnProfile = currentUser.id === uId;
+  if (!isOwnProfile) {
+    navigate("/");
+  }
 
   // Local state to manage input values
   const [editedUser, setEditedUser] = useState({
-    ...user,
+    ...currentUser,
   });
 
-  const handleSave = () => {
-    handleUpdateUser(editedUser);
-    navigate(`/Profile/${uId}`);
-  };
-
-  const handleUpdateUser = async (user) => {
-    const updatedUser = user;
-    // for now theres a placeholder, but this is where the API call would go
-    // const updatedUser = await updateUser(user);
-    dispatch(updateUser(updatedUser));
+  const save = async () => {
+    try {
+      await client.updateUser(editedUser);
+      dispatch(setCurrentUser(editedUser));
+      navigate(`/Profile/${uId}`);
+    } catch (error) {
+      // console.error("Update failed: ", error);
+    }
   };
 
   return (
-    /*
-
-      WRITE CONDITION TO MAKE SURE UID MATCHES LOGGED IN USER
-      - THIS MAKES SURE YOU CANT CHANGE URL AND EDIT OTHER USERS PROFILES
-
-    */
     <div
       className="container bg-main bg-dark m-0 px-4"
       style={{
@@ -45,8 +44,8 @@ function ProfileEditor() {
         maxWidth: "100%",
         maxHeight: "100%",
         height: "100vh",
-        minHeight: "100vh", 
-        overflowY: "auto", 
+        minHeight: "100vh",
+        overflowY: "auto",
       }}
     >
       <h1 className="text-white text-center p-4">Edit Your Profile</h1>
@@ -130,7 +129,7 @@ function ProfileEditor() {
         />
       </div>
 
-      <button onClick={handleSave} className="btn btn-success">
+      <button onClick={save} className="btn btn-success">
         Save
       </button>
       <Link to={`/profile/${uId}`} className="btn btn-danger ms-2">

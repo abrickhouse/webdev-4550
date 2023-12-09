@@ -7,7 +7,7 @@ function CurrentUser({children}){
   const dispatch = useDispatch();
   const fetchUser = async () => {
     try {
-      const user = await client.account();
+      const user = await client.account();  
       setUser(user);
       dispatch(setCurrentUser(user));
     } catch (error) {}
