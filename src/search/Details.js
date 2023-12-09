@@ -22,6 +22,7 @@ function Details() {
  const [reviews, setReviews] = useState([]);
  const [bookmarked, setBookmarked] = useState(false);
 
+ console.log(from);
  const fetchReviews = async () => {
   const revs = await client.findAllReviews();
   setReviews(revs);

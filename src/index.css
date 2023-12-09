@@ -323,3 +323,9 @@ a {
   margin-left: 20px;
   width: 60px;
 }
+
+.movieHeading{
+  font-weight: bold;
+  font-size: 40px;
+  margin-left: 13px;
+}

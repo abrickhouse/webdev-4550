@@ -73,7 +73,7 @@ function Home() {
             <Link
               key={index}
               to={`/details/${review.movie_id}`}
-              state={{ from: `/profile/${review._id}` }}
+              state={{ from: `/` }}
             >
               <li key={index} className="list-group-item">
                 <Review
@@ -91,7 +91,7 @@ function Home() {
             <Link
               key={index}
               to={`/details/${review.movie_id}`}
-              state={{ from: `/profile/${review._id}` }}
+              state={{ from: `/` }}
             >
               <li key={index} className="list-group-item">
                 <Review
@@ -132,7 +132,7 @@ function Home() {
             </Link>
           </li>
         ))}
-        <Link to={`/upcoming`}>
+        <Link to={`/upcoming/?page=1`}>
         <li className="list-group-item"><button className="viewButton">View more <i class="fas fa-chevron-right"></i></button></li>
         </Link>
       </ul>
@@ -160,7 +160,7 @@ function Home() {
             </Link>
           </li>
         ))}
-        <Link to={`/popular`}>
+        <Link to={`/popular/?page=1`}>
         <li className="list-group-item"><button className="viewButton">View more <i class="fas fa-chevron-right"></i></button></li>
         </Link>
       </ul>

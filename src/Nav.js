@@ -2,8 +2,6 @@ import { Link, useNavigate } from "react-router-dom";
 import UserReducer from "./login/UserReducer";
 import { useSelector } from "react-redux";
 import * as client from "./login/client";
-import ProtectedUserRoute from "./login/ProtectedUserRoute";
-import ProtectedNonUserRoute from "./login/ProtectedNonUserRoute";
 import { useEffect } from "react";
 import { setCurrentUser } from "./login/UserReducer";
 import { useDispatch } from "react-redux";

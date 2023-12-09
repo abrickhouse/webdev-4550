@@ -32,7 +32,8 @@ function TrendingMovies() {
     <Link to='/' class="link">
     <i className="fa fa-chevron-left float-start mx-1 my-1"></i> Back
    </Link>
-    <h2>Trending Movies</h2>
+   <br/>
+    <span className="movieHeading">Trending Movies</span>
     <div className="row movie">
       {trendingMovies.map((movie) => (
         <div key={movie.id} className="movie-card">
