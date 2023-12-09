@@ -5,7 +5,7 @@ import { Routes, Route, Navigate } from "react-router";
 import React, { Component } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import * as client from "./client";
 import * as uClient from "../login/client";
@@ -75,6 +75,8 @@ function Details() {
   }
  };
 
+ const dispatch = useDispatch();
+
  const bookmark = async () => {
   // setBookmarked(true);
   const newU = {
@@ -95,8 +97,10 @@ function Details() {
   };
 
   try {
-   const addB = await uClient.updateUser(newU);
-   setCurrentUser(addB);
+   //  const addB = await uClient.updateUser(newU);
+   //  setCurrentUser(addB);
+   await uClient.updateUser(newU);
+   dispatch(setCurrentUser(newU));
   } catch (err) {
    console.log(err);
   }
@@ -121,8 +125,10 @@ function Details() {
    bookmarks: currentUser.bookmarks.filter((b) => b !== result.id),
   };
   try {
-   const removeB = await uClient.updateUser(newU);
-   setCurrentUser(removeB);
+   //  const removeB = await uClient.updateUser(newU);
+   //  setCurrentUser(removeB);
+   await uClient.updateUser(newU);
+   dispatch(setCurrentUser(newU));
   } catch (err) {
    console.log(err);
   }

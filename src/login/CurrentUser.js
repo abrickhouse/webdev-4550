@@ -14,7 +14,7 @@ function CurrentUser({ children }) {
  };
  useEffect(() => {
   fetchUser();
- }, [user]);
+ }, []);
  return (
   <div>
    <h1>currentUser</h1>

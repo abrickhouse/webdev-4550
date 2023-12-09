@@ -18,10 +18,13 @@ function Profile() {
 
  const fetchUsers = async () => {
   const fetchedUsers = await uClient.findAllUsers();
-  setUsers(fetchedUsers);
+  await setUsers(fetchedUsers);
+  await setUser(fetchedUsers.find((user) => user.id === uId));
 
   console.log(fetchedUsers);
-  setUser(fetchedUsers.find((user) => user.id.toString() === uId));
+  console.log(users);
+  console.log(fetchedUsers.find((user) => user.id === uId));
+  console.log(user);
  };
 
  const navigate = useNavigate();
@@ -60,15 +63,15 @@ function Profile() {
  const [showResponses, setShowResponses] = useState(true);
 
  // generate a list of followers and following from the indices in the user object
- const followers = users.filter((u) => user?.followers.includes(u.id));
- const following = users.filter((u) => user?.following.includes(u.id));
+ const followers = users.filter((u) => user.followers.includes(u.id));
+ const following = users.filter((u) => user.following.includes(u.id));
 
  useEffect(() => {
   fetchScreenings();
   fetchReviews();
   fetchResponses();
   fetchUsers();
- }, []);
+ }, [uId]);
 
  return (
   <div className="px-2 bg-main bg-dark">
@@ -210,21 +213,17 @@ function Profile() {
           </button>
          </div>
          {showAddedMovies && (
-          <ul className="list-group">
+          <ul className="list-group flex-wrap flex-row">
            {screenings
-            .filter((s) => s.user === user.name)
+            .filter((s) => s.user === user.username)
             .map((addedMovie, index) => (
-             <li
-              className="list-group-item border-dark border-2 rounded wd-li"
+             <MiniScreening
+              user={user.name}
+              date={addedMovie.date}
+              viewers={addedMovie.viewers}
+              movie={addedMovie.movie_id}
               key={index}
-             >
-              <MiniScreening
-               user={user.name}
-               date={addedMovie.date}
-               viewers={addedMovie.viewers}
-               movie={addedMovie.movie_id}
-              />
-             </li>
+             />
             ))}
           </ul>
          )}
@@ -239,7 +238,7 @@ function Profile() {
          {showResponses && (
           <ul className="list-group">
            {response
-            .filter((r) => r.user === user.name)
+            .filter((r) => r.user === user.username)
             .map((response, index) => (
              <Link
               to={`/details/${response.movie_id}`}

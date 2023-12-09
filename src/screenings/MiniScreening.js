@@ -39,17 +39,17 @@ function MiniScreening(props) {
        {" "}
        <img
         className="mx-1 my-2"
-        style={{ height: "100px", width: "auto" }}
+        style={{ height: "150px", width: "auto" }}
         alt="poster"
         src={`https://image.tmdb.org/t/p/w300/${result.poster_path}`}
        />{" "}
        <div>
         {" "}
-        <h6 class="mx-2">
+        <h6 class="mx-1">
          {result.original_title ? result.original_title : result.original_name}
         </h6>
-        <div class="mx-2">Date: {props.date}</div>
-        <div class="mx-2">Viewers: {props.views.length}</div>
+        <div class="mx-1">Date: {props.date}</div>
+        <div class="mx-1">Viewers: {props.viewers.length}</div>
        </div>
       </div>
      </div>
