@@ -33,6 +33,7 @@ function App() {
              <Route path="/screenings/*" element={<Screenings />} />
              <Route path="/search/" element={<Search />} />
              <Route path="/result/:que" element={<SearchRes />} />
+             <Route path="/profile" element={<Profile />} />
              <Route path="/profile/:uId" element={<Profile />} />
              <Route path="/profile/noUser" element={<Signin />} />
              <Route path="/profile/profileEditor/:uId" element={<ProfileEditor />} />

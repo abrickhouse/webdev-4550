@@ -38,7 +38,7 @@ function Profile() {
   let isOwnProfile = false;
 
   if (currentUser) {
-    isOwnProfile = uId == currentUser.id;
+    isOwnProfile = (uId == currentUser.id);
   }
 
   const [showFollowers, setShowFollowers] = useState(true);
