@@ -28,20 +28,17 @@ function Nav() {
         <Link className="float-start nav-linkx" to="/">
           Home
         </Link>
-        {
-            currentUser && 
-            <Link className="float-end nav-linkx" onClick={signout}>
-                Sign Out
-            </Link>
-        }
-
-        {
-            !currentUser && 
-            <Link className="float-end nav-linkx" to="/login">
-                Login
-            </Link>
-        }
-        <Link className="float-end nav-linkx" to={`/Profile/${currentUserId}`}>
+        {currentUser && (
+          <Link className="float-end nav-linkx" onClick={signout}>
+            Sign Out
+          </Link>
+        )}
+        {!currentUser && (
+          <Link className="float-end nav-linkx" to="/login">
+            Login
+          </Link>
+        )}
+        <Link className="float-end nav-linkx" to="/profile">
           Profile
         </Link>
         <Link className="float-end nav-linkx" to="/Screenings">
