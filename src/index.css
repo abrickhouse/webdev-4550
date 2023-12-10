@@ -254,7 +254,7 @@ a {
 }
 
 .movie-card {
-  flex: 0 0 240px; 
+  flex: 0 0 200px; 
   margin-bottom: 2rem;
   display: flex;
   flex-direction: column; 
