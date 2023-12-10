@@ -7,11 +7,13 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Review from "../search/Review";
 import * as client from "../search/client"
+import * as uClient from "../login/client";
 import Pagination from "./Pagination";
 function Home() {
  const [upcomingMovies, setUpcomingMovies] = useState([]);
  const [trendingMovies, setTrendingMovies] = useState([]);
  const [popularMovies, setPopularMovies] = useState([]);
+ const [users, setUsers] = useState([]);
  const { currentUser } = useSelector((state) => state.UserReducer);
  const [reviews, setReviews] = useState([]);
 
@@ -44,6 +46,10 @@ function Home() {
  const paginateNonUser = pageNumber => setCurrentPageNonUser(pageNumber);
 
 
+ const fetchUsers = async () => {
+  const users = await uClient.findAllUsers();
+  setUsers(users);
+ }
  const fetchReviews = async () => {
   const reviews = await client.findAllReviews();
   setReviews(reviews);
@@ -86,7 +92,10 @@ function Home() {
    .catch((err) => console.error(err));
    
   fetchReviews();
+  fetchUsers();
  }, []);
+
+ console.log(users);
  return (
   <div class="px-2 bg-main">
    <Nav />
@@ -140,12 +149,14 @@ function Home() {
         reviewsPerPage={reviewsPerPage}
         totalReviews={totalReviewsForUser}
         paginate={paginateUser}
+        currentPage={currentPageUser}
       />
     ) : (
       <Pagination
         reviewsPerPage={reviewsPerPage}
         totalReviews={totalReviewsNonUser}
         paginate={paginateNonUser}
+        currentPage={currentPageNonUser}
       />
     )}
       </div>
@@ -233,6 +244,16 @@ function Home() {
         <Link to={`/trending`}>
         <li className="list-group-item"><button className="viewButton">View more <i className="fas fa-chevron-right"></i></button></li>
         </Link>
+      </ul>
+      <ul className="home list-group">
+        <li className="list-group-item active"><h4>Trending Users</h4></li>
+        {users.slice(0,3).map((user) => (
+          <li className="list-group-item" key={user.id}>
+            <Link to={`/profile/${user.id}`} state={{ from: `/` }} className="homeDetails">
+              <p className="people-trending">{user.name}</p>
+            </Link> 
+          </li>
+        ))}
       </ul>
     </div>
      <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12">

@@ -254,7 +254,7 @@ a {
 }
 
 .movie-card {
-  flex: 0 0 200px; 
+  flex: 0 0 240px; 
   margin-bottom: 2rem;
   display: flex;
   flex-direction: column; 
@@ -324,7 +324,7 @@ a {
 .movieHeading{
   font-weight: bold;
   font-size: 40px;
-  margin-left: 15px;
+  margin-left: 20px;
 }
 
 ul.pagination{
@@ -334,8 +334,8 @@ ul.pagination{
 }
 
 .pagination .page-link:hover {
-  background-color: white; 
-  color: #333; 
+  background-color: #bff3c5; 
+  color: black; 
   cursor: pointer; 
 
 }
@@ -343,4 +343,16 @@ ul.pagination{
 
 .delete{
   float:right;
+}
+
+.people-trending{
+  font-size: 20px;
+  padding-top: 10px;
+  font-weight: 600px;
+}
+
+.page-item.active .page-link {
+  background-color: #242424; 
+  color: white; 
+  border-radius: 3px; 
 }
