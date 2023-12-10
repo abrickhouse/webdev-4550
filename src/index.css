@@ -240,7 +240,7 @@ a {
   font-size: 0.8rem;
   display: flex;
   align-items: left;
-  font-weight: 600px;
+  font-weight: 400;
   font-size: 14px;
 }
 
@@ -348,7 +348,7 @@ ul.pagination{
 .people-trending{
   font-size: 20px;
   padding-top: 10px;
-  font-weight: 600px;
+  font-weight: 600;
 }
 
 .page-item.active .page-link {
