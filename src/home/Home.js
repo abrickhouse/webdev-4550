@@ -94,8 +94,6 @@ function Home() {
   fetchReviews();
   fetchUsers();
  }, []);
-
- console.log(users);
  return (
   <div class="px-2 bg-main">
    <Nav />

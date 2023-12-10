@@ -4,33 +4,36 @@ import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import Review from "../search/Review";
 import MiniScreening from "../screenings/MiniScreening";
-import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import * as client from "../search/client.js";
 import * as uClient from "../login/client.js";
 import MiniMovie from "../screenings/MiniMovie";
+import { setCurrentUser } from "../login/UserReducer";
 
 // Profile page for a user. Only displays sensitive information if this screen is the logged in user's profile
 function Profile() {
+   const { currentUser } = useSelector((state) => state.UserReducer);
   const { uId } = useParams();
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState();
 
   // generate a list of followers and following from the indices in the user object
-  const [followers, setEr] = useState([]);
-  const [following, setIng] = useState([]);
+  const [followers, setFollowers] = useState([]);
+  const [following, setFollowing] = useState([]);
 
   const fetchUsers = async () => {
     const fetchedUsers = await uClient.findAllUsers();
     await setUsers(fetchedUsers);
     if (uId) {
       await setUser(fetchedUsers.find((user) => user.id === uId));
-      await setEr(fetchedUsers.filter((u) => u.following.includes(uId)));
-      await setIng(fetchedUsers.filter((u) => u.followers.includes(uId)));
+      await setFollowers(fetchedUsers.filter((u) => u.following.includes(uId)));
+      await setFollowing(fetchedUsers.filter((u) => u.followers.includes(uId)));
     }
+
   };
 
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [screenings, setScreenings] = useState([]);
   const fetchScreenings = async () => {
     const scs = await client.findAllScreenings();
@@ -49,27 +52,21 @@ function Profile() {
     setResponse(reps);
   };
 
-  const { currentUser } = useSelector((state) => state.UserReducer);
+  
 
   // boolean for if the logged in user is viewing their own profile
   let isOwnProfile = false;
 
-  if (!currentUser && !uId) {
-    navigate("/login");
-  }
+   useEffect(() => {
+     if (!uId) {
+       setUser(currentUser);
+       isOwnProfile = true;
+     }
+   }, [uId, currentUser]);
 
-  useEffect(() => {
-    if (!uId) {
-      setUser(currentUser);
-      console.log("Set current user as:");
-      console.log(user);
-      console.log(currentUser);
-    }
-  }, [uId, currentUser]);
-
-  if (uId && currentUser) {
-    isOwnProfile = uId === currentUser.id;
-  }
+   if (uId && currentUser) {
+     isOwnProfile = uId === currentUser.id;
+   } 
 
   if (!uId) {
     isOwnProfile = true;
@@ -89,6 +86,50 @@ function Profile() {
     fetchUsers();
   }, [uId]);
 
+  const handleFollow = async () => {
+    try {
+      // Update user's followers list locally
+      const updatedUser = { ...user, followers: [...user.followers, currentUser.id] };
+      setUser(updatedUser);
+
+      // Update current user's following list locally
+      const updatedCurrentUser = { ...currentUser, following: [...currentUser.following, user.id] };
+      dispatch(setCurrentUser(updatedCurrentUser));
+
+      // Update user and current user on the server
+      await uClient.updateUser(updatedUser);
+      await uClient.updateUser(updatedCurrentUser);
+      await fetchUsers(); 
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleUnfollow = async () => {
+    try {
+      // update user's followers list
+      const updatedUser = {
+        ...user,
+        followers: user.followers.filter((f) => f !== currentUser.id),
+      };
+      setUser(updatedUser);
+      
+      // update current user's following list
+      const updatedCurrentUser = {
+        ...currentUser,
+        following: currentUser.following.filter((f) => f !== user.id),
+      };
+      dispatch(setCurrentUser(updatedCurrentUser));
+
+      // now on server update user and current user
+      await uClient.updateUser(updatedUser);
+      await uClient.updateUser(updatedCurrentUser);
+      await fetchUsers(); 
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="px-2 bg-main bg-dark">
       <Nav />
@@ -104,7 +145,7 @@ function Profile() {
             >
               {/* <div className="col-md-4 border rounded p-4 me-3 mt-2 bg-mint wd-scrollable-div"> */}
               <h2
-                className="rounded"
+                className="rounded mb-3"
                 style={{
                   textAlign: "center",
                   fontFamily: "Arial, sans-serif",
@@ -121,19 +162,30 @@ function Profile() {
               />
               <h1 className="text-center">{user.name}</h1>
               <div className="d-flex justify-content-center mb-2 mt-4">
-                {/* EDIT PROFILE BUTTON only if this is logged in user */}
-                {isOwnProfile && (
+                {/* EDIT PROFILE BUTTON only if this is logged in user, otherwise follow/unfollow button */}
+                {isOwnProfile ? (
                   <Link
                     className="wd-link border-dark border-2 rounded wd-li bg-success p-2 text-center form-control"
                     to={`/profile/profileEditor/${currentUser.id}`}
                   >
                     Edit Your Profile
                   </Link>
-                )}
-                {/* FOLLOW BUTTON only if this is not the logged in user*/}
-                {!isOwnProfile && (
-                  <button className="wd-link border-dark border-2 rounded wd-li bg-warning p-2 text-center form-control">
+                ) : // Render the follow/unfollow buttons
+                !currentUser.following.includes(user.id) ? (
+                  // Follow button for if not already following user
+                  <button
+                    onClick={handleFollow}
+                    className="wd-link border-dark border-2 rounded wd-li bg-warning p-2 text-center form-control"
+                  >
                     Follow {user.name}
+                  </button>
+                ) : (
+                  // Unfollow button for if user is already following
+                  <button
+                    onClick={handleUnfollow}
+                    className="wd-link border-dark border-2 rounded wd-li bg-warning p-2 text-center form-control"
+                  >
+                    Unfollow {user.name}
                   </button>
                 )}
               </div>
@@ -293,15 +345,16 @@ function Profile() {
                   className="btn btn-light form-control"
                   onClick={() => setShowFollowers(!showFollowers)}
                 >
-                  {showFollowers ? "Hide Followers" : "Display Followers"} ({followers.length})
+                  {showFollowers ? "Hide Followers" : "Display Followers"} ({user.followers.length})
                 </button>
               </div>
               {showFollowers && (
                 <ul className="list-group">
-                  {followers.map((f) => (
-                    <Link className="wd-link" to={`/profile/${f.id}`}>
-                      <li className="list-group-item border-dark border-2 rounded wd-li" key={f.id}>
-                        {f.name}
+                  {user.followers.map((f) => (
+                    <Link className="wd-link" to={`/profile/${f}`}>
+                      <li className="list-group-item border-dark border-2 rounded wd-li" key={f}>
+                        {/* find user whos id matches f.id and display their name */}
+                        {users.find((u) => u.id === f)?.name || "User not found"}
                       </li>
                     </Link>
                   ))}
@@ -312,15 +365,16 @@ function Profile() {
                   className="btn btn-light mt-4 form-control"
                   onClick={() => setShowFollowing(!showFollowing)}
                 >
-                  {showFollowing ? "Hide Following" : "Display Following"} ({following.length})
+                  {showFollowing ? "Hide Following" : "Display Following"} ({user.following.length})
                 </button>
               </div>
               {showFollowing && (
                 <ul className="list-group">
-                  {following.map((f) => (
-                    <Link to={`/profile/${f.id}`} className="wd-link">
-                      <li className="list-group-item border-dark border-2 rounded wd-li" key={f.id}>
-                        {f.name}
+                  {user.following.map((f) => (
+                    <Link to={`/profile/${f}`} className="wd-link">
+                      <li className="list-group-item border-dark border-2 rounded wd-li" key={f}>
+                        {/* find user whos id matches f.id and display their name */}
+                        {users.find((u) => u.id === f)?.name || "User not found"}
                       </li>
                     </Link>
                   ))}

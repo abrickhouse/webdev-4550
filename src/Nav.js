@@ -38,9 +38,11 @@ function Nav() {
             Login
           </Link>
         )}
+        {currentUser && (
         <Link className="float-end nav-linkx" to="/profile">
           Profile
         </Link>
+        )}
         <Link className="float-end nav-linkx" to="/Screenings">
           Screenings
         </Link>
