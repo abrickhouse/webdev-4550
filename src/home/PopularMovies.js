@@ -38,12 +38,14 @@ function PopularMovies() {
   const handleNextPage = () => {
     const nextPage = getPageNumberFromUrl() + 1;
     navigate(`?page=${nextPage}`);
+    window.scrollTo(0, 0);
   };
   
 
   const handleNextNextPage = () => {
     const nextPage = getPageNumberFromUrl() + 2;
     navigate(`?page=${nextPage}`);
+    window.scrollTo(0, 0);
   };
 
   const handlePrevPage = () => {
@@ -51,6 +53,7 @@ function PopularMovies() {
     if (currentPage > 1) {
       navigate(`?page=${currentPage - 1}`);
     }
+    window.scrollTo(0, 0);
   };
 
   const handlePrevPrevPage = () => {
@@ -58,6 +61,7 @@ function PopularMovies() {
     if (currentPage > 1) {
       navigate(`?page=${currentPage - 2}`);
     }
+    window.scrollTo(0, 0);
   };
   console.log(`${location.pathname}${location.search}`);
 

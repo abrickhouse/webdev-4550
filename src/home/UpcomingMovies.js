@@ -38,11 +38,13 @@ function UpcomingMovies() {
   const handleNextPage = () => {
     const nextPage = getPageNumberFromUrl() + 1;
     navigate(`?page=${nextPage}`);
+    window.scrollTo(0, 0);
   };
 
   const handleNextNextPage = () => {
     const nextPage = getPageNumberFromUrl() + 2;
     navigate(`?page=${nextPage}`);
+    window.scrollTo(0, 0);
   };
 
   const handlePrevPage = () => {
@@ -50,6 +52,7 @@ function UpcomingMovies() {
     if (currentPage > 1) {
       navigate(`?page=${currentPage - 1}`);
     }
+    window.scrollTo(0, 0);
   };
 
   const handlePrevPrevPage = () => {
@@ -57,6 +60,7 @@ function UpcomingMovies() {
     if (currentPage > 1) {
       navigate(`?page=${currentPage - 1}`);
     }
+    window.scrollTo(0, 0);
   };
 
   return (
