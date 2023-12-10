@@ -82,6 +82,7 @@ function Screenings() {
       Movie ID:{" "}
       <input
        class="form-control"
+       placeholder="12"
        onChange={(e) => setMov(e.target.value)}
       ></input>
      </label>
@@ -91,6 +92,7 @@ function Screenings() {
        <input
         onChange={(e) => setDat(e.target.value)}
         type="date"
+        placeholder="10-10-2024"
         className="form-control "
        ></input>
       </label>

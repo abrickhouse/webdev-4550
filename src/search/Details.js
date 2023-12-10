@@ -221,6 +221,7 @@ function Details() {
           onChange={(e) => setRat(e.target.value)}
           type="number"
           min="1"
+          placeholder="5"
           max="5"
           className="form-control "
          ></input>
