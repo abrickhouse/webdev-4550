@@ -2,21 +2,21 @@
 
 ## Running the application
 
-Netlify link: https://master--screenspeak.netlify.app/?#/ 
+Netlify link: https://master--screenspeak.netlify.app/?#/ \
 
-Heroku link: https://movie-node-server-428915c2c3ab.herokuapp.com/
+Heroku link: https://movie-node-server-428915c2c3ab.herokuapp.com/\
 
-Locally:
+Locally:\
 
-In React Repo
+In React Repo\
 
-Change env variable REACT_APP_BASE_API_URL to http://localhost:4000
+Change env variable REACT_APP_BASE_API_URL to http://localhost:4000\
 
-In Node Repo
+In Node Repo\
 
-Change env variable NODE_ENV to development
+Change env variable NODE_ENV to development\
 
-In app.js, change OTHER_URL to FRONTEND_URL
+In app.js, change OTHER_URL to FRONTEND_URL\
 
 
 
