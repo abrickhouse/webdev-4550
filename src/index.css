@@ -248,7 +248,7 @@ a {
 .row.movie {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around; 
+  justify-content: left; 
   gap: 1rem; 
   --bs-gutter-x: 0;
 }
