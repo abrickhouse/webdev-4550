@@ -11,7 +11,7 @@ function Signup() {
     username: "",
     password: "",
     email: "",
-    userType: "REVIEWER",
+    userType: "Typical User",
     id: "",
   });
   const [error, setError] = useState("");
@@ -154,8 +154,8 @@ function Signup() {
                   type="radio"
                   name="TypeOfUser"
                   id="Reviewer"
-                  value="REVIEWER"
-                  checked={credentials.userType === "REVIEWER"}
+                  value="Typical User"
+                  checked={credentials.userType === "Typical User"}
                   onChange={handleRoleChange}
                 />
                 <label className="register-sent" for="Reviewer">
@@ -168,8 +168,8 @@ function Signup() {
                   type="radio"
                   name="TypeOfUser"
                   id="Director"
-                  value="DIRECTOR"
-                  checked={credentials.userType === "DIRECTOR"}
+                  value="Director"
+                  checked={credentials.userType === "Director"}
                   onChange={handleRoleChange}
                 />
                 <label className="register-sent" for="Director">
