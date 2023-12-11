@@ -11,7 +11,7 @@ function Signup() {
     username: "",
     password: "",
     email: "",
-    role: "REVIEWER",
+    userType: "REVIEWER",
     id: "",
   });
   const [error, setError] = useState("");
@@ -19,7 +19,7 @@ function Signup() {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleRoleChange = (e) => {
-    setCredentials({ ...credentials, role: e.target.value });
+    setCredentials({ ...credentials, userType: e.target.value });
   };
   const signup = async () => {
     // if no username is inputted
@@ -155,7 +155,7 @@ function Signup() {
                   name="TypeOfUser"
                   id="Reviewer"
                   value="REVIEWER"
-                  checked={credentials.role === "REVIEWER"}
+                  checked={credentials.userType === "REVIEWER"}
                   onChange={handleRoleChange}
                 />
                 <label className="register-sent" for="Reviewer">
@@ -169,7 +169,7 @@ function Signup() {
                   name="TypeOfUser"
                   id="Director"
                   value="DIRECTOR"
-                  checked={credentials.role === "DIRECTOR"}
+                  checked={credentials.userType === "DIRECTOR"}
                   onChange={handleRoleChange}
                 />
                 <label className="register-sent" for="Director">
